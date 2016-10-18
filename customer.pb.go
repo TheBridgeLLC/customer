@@ -47,7 +47,8 @@ type ReportRequest struct {
 	ClientId string `protobuf:"bytes,1,opt,name=client_id,json=clientId" json:"client_id,omitempty"`
 	FromDate string `protobuf:"bytes,2,opt,name=from_date,json=fromDate" json:"from_date,omitempty"`
 	ToDate   string `protobuf:"bytes,3,opt,name=to_date,json=toDate" json:"to_date,omitempty"`
-	Format   string `protobuf:"bytes,4,opt,name=format" json:"format,omitempty"`
+	// Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
+	Format string `protobuf:"bytes,4,opt,name=format" json:"format,omitempty"`
 }
 
 func (m *ReportRequest) Reset()                    { *m = ReportRequest{} }
@@ -110,6 +111,7 @@ func (*ConfigHistoryItem) ProtoMessage()               {}
 func (*ConfigHistoryItem) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
 
 type Customer struct {
+	// There should be at least one advertiser in the config.
 	Advertisers map[string]*Advertiser `protobuf:"bytes,1,rep,name=advertisers" json:"advertisers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 }
 
@@ -126,8 +128,10 @@ func (m *Customer) GetAdvertisers() map[string]*Advertiser {
 }
 
 type Advertiser struct {
-	Name      string               `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// There should be at least one campaign for each advertiser.
 	Campaigns map[string]*Campaign `protobuf:"bytes,2,rep,name=campaigns" json:"campaigns,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	// There should be at least one creative for each advertiser.
 	Creatives map[string]*Creative `protobuf:"bytes,3,rep,name=creatives" json:"creatives,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 }
 
@@ -156,16 +160,24 @@ type Campaign struct {
 	ClientId  string   `protobuf:"bytes,3,opt,name=client_id,json=clientId" json:"client_id,omitempty"`
 	Name      string   `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 	Creatives []string `protobuf:"bytes,4,rep,name=creatives" json:"creatives,omitempty"`
-	Category  []string `protobuf:"bytes,5,rep,name=category" json:"category,omitempty"`
+	// IAB content categories of the campaign. Refer to List 5.1 in the openRTB spec.
 	// This is sent in the bid response as the "cat" field.
 	// This is compared with the "bcat" field in the bid request. If matched - the campaign is not bidded.
-	Pricing *Campaign_Pricing `protobuf:"bytes,6,opt,name=pricing" json:"pricing,omitempty"`
-	Budget  *Campaign_Budget  `protobuf:"bytes,7,opt,name=budget" json:"budget,omitempty"`
-	// Required
-	Targeting      *Targeting `protobuf:"bytes,8,opt,name=targeting" json:"targeting,omitempty"`
-	LandingPageUrl []string   `protobuf:"bytes,9,rep,name=landing_page_url,json=landingPageUrl" json:"landing_page_url,omitempty"`
+	Category []string          `protobuf:"bytes,5,rep,name=category" json:"category,omitempty"`
+	Pricing  *Campaign_Pricing `protobuf:"bytes,6,opt,name=pricing" json:"pricing,omitempty"`
+	Budget   *Campaign_Budget  `protobuf:"bytes,7,opt,name=budget" json:"budget,omitempty"`
+	// Required. If campaign has no targetings, please pass the empty object like {}.
+	Targeting *Targeting `protobuf:"bytes,8,opt,name=targeting" json:"targeting,omitempty"`
+	// URL of the landing page without get parameters.
 	// This is sent to the "adomain" bid response field.
 	// The landing page's domain is compared with the "badv" field in the bid request. If matched - the campaign is not bidded.
+	LandingPageUrl []string `protobuf:"bytes,9,rep,name=landing_page_url,json=landingPageUrl" json:"landing_page_url,omitempty"`
+	// The URL without the protocol prefix (http:// or https://) which will be called on the impression.
+	// {RANDOM} macro could be used for cachebusting.
+	// Incorrect Ex: http://www.tracker.com/?...
+	// Correct Ex: wwww.tracker.com/?...
+	// "http://" or "https://" will be added automatically based on the "imp.secure" flag into the bid request.
+	// Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
 	ImpressionTrackingUrl string `protobuf:"bytes,10,opt,name=impression_tracking_url,json=impressionTrackingUrl" json:"impression_tracking_url,omitempty"`
 }
 
@@ -197,8 +209,12 @@ func (m *Campaign) GetTargeting() *Targeting {
 
 // Required
 type Campaign_Pricing struct {
-	Currency   string  `protobuf:"bytes,1,opt,name=currency" json:"currency,omitempty"`
-	Bid        float64 `protobuf:"fixed64,2,opt,name=bid" json:"bid,omitempty"`
+	// This is compared against ortb field "cur" from the bid request,
+	// which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
+	Currency string `protobuf:"bytes,1,opt,name=currency" json:"currency,omitempty"`
+	// This number is sent into the bid response as the bid CPM price.
+	Bid float64 `protobuf:"fixed64,2,opt,name=bid" json:"bid,omitempty"`
+	// This number divided by 1,000 (CPM) the campaign budget is decreased on the impression.
 	Impression float64 `protobuf:"fixed64,3,opt,name=impression" json:"impression,omitempty"`
 }
 
@@ -208,6 +224,8 @@ func (*Campaign_Pricing) ProtoMessage()               {}
 func (*Campaign_Pricing) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8, 0} }
 
 type Campaign_Budget struct {
+	// Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
+	// Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
 	Daily float64 `protobuf:"fixed64,1,opt,name=daily" json:"daily,omitempty"`
 }
 
@@ -217,22 +235,40 @@ func (*Campaign_Budget) ProtoMessage()               {}
 func (*Campaign_Budget) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8, 1} }
 
 type Creative struct {
-	Name        string         `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Id          string         `protobuf:"bytes,2,opt,name=id" json:"id,omitempty"`
-	AdId        string         `protobuf:"bytes,3,opt,name=ad_id,json=adId" json:"ad_id,omitempty"`
-	Insecure    bool           `protobuf:"varint,4,opt,name=insecure" json:"insecure,omitempty"`
-	Type        string         `protobuf:"bytes,5,opt,name=type" json:"type,omitempty"`
-	ClickUrl    string         `protobuf:"bytes,6,opt,name=click_url,json=clickUrl" json:"click_url,omitempty"`
-	Size        *Creative_Size `protobuf:"bytes,7,opt,name=size" json:"size,omitempty"`
-	HtmlContent string         `protobuf:"bytes,8,opt,name=html_content,json=htmlContent" json:"html_content,omitempty"`
-	Duration    int64          `protobuf:"varint,9,opt,name=duration" json:"duration,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// Please ignore this field.
+	Id string `protobuf:"bytes,2,opt,name=id" json:"id,omitempty"`
+	// Please ignore this field.
+	AdId string `protobuf:"bytes,3,opt,name=ad_id,json=adId" json:"ad_id,omitempty"`
+	// Please populate this flag to TRUE in case the creative code has the "http://" requests
+	// or impression_tracking_url doesn't have the valid SSL certificate.
+	Insecure bool `protobuf:"varint,4,opt,name=insecure" json:"insecure,omitempty"`
+	// Available creative types: "3rd_party_banner", "video".
+	Type string `protobuf:"bytes,5,opt,name=type" json:"type,omitempty"`
+	// URL the user is sent to on click. Should contains the protocol (http:// or https://).
+	// This is required for the creatives which should be rotated in the Google Ad Exchange.
+	ClickUrl string         `protobuf:"bytes,6,opt,name=click_url,json=clickUrl" json:"click_url,omitempty"`
+	Size     *Creative_Size `protobuf:"bytes,7,opt,name=size" json:"size,omitempty"`
+	// Creative's html snippet. Should contains valid html code.
+	// This field could contains the following macros:
+	// {CLICK_URL} will be resolved to the click URL handler.
+	// {CLICK_URL_ESC} will be resolved to the escaped click URL handler.
+	// {PUB_ID} will be resolved to the publisher id.
+	// Note: either {CLICK_URL} or {CLICK_URL_ESC} is required for the creatives which should be rotated in the Google Ad Exchange.
+	HtmlContent string `protobuf:"bytes,8,opt,name=html_content,json=htmlContent" json:"html_content,omitempty"`
+	// Video ad duration in seconds. Required for the creative type "video".
 	// This is compared with the "video.minduration" and "video.maxduration" fields in the bid request.
 	// Creative's duration should be between these values to be eligible for bid.
-	Mimes []string `protobuf:"bytes,10,rep,name=mimes" json:"mimes,omitempty"`
+	Duration int64 `protobuf:"varint,9,opt,name=duration" json:"duration,omitempty"`
+	// Creative's MIME type. This is compared with the "banner.mimes" field in the bid request.
 	// If no matches - creative is not eligible for bid.
-	Protocols []string `protobuf:"bytes,11,rep,name=protocols" json:"protocols,omitempty"`
+	Mimes []string `protobuf:"bytes,10,rep,name=mimes" json:"mimes,omitempty"`
+	// Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
 	// This is compared with the "video.protocols" field in the bid request.
 	// If no matches - creative is not eligible for bid.
+	Protocols []string `protobuf:"bytes,11,rep,name=protocols" json:"protocols,omitempty"`
+	// The URL which returns the valid VAST XML.
+	// Required for the creative type "video".
 	VastUrl string `protobuf:"bytes,12,opt,name=vast_url,json=vastUrl" json:"vast_url,omitempty"`
 }
 
@@ -259,18 +295,26 @@ func (*Creative_Size) ProtoMessage()               {}
 func (*Creative_Size) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9, 0} }
 
 type Targeting struct {
-	Geo       *Targeting_Geo  `protobuf:"bytes,1,opt,name=geo" json:"geo,omitempty"`
-	Os        []*Targeting_OS `protobuf:"bytes,2,rep,name=os" json:"os,omitempty"`
-	Frequency int64           `protobuf:"varint,3,opt,name=frequency" json:"frequency,omitempty"`
+	Geo *Targeting_Geo  `protobuf:"bytes,1,opt,name=geo" json:"geo,omitempty"`
+	Os  []*Targeting_OS `protobuf:"bytes,2,rep,name=os" json:"os,omitempty"`
+	// The minimum delay between any two impressions for the single user in the one ad network in seconds.
 	// Works by "user.id" field in the bid request.
-	UserAgent  *Targeting_UserAgent `protobuf:"bytes,4,opt,name=user_agent,json=userAgent" json:"user_agent,omitempty"`
-	Carrier    *Targeting_ListMatch `protobuf:"bytes,5,opt,name=carrier" json:"carrier,omitempty"`
-	Cat        *Targeting_ListMatch `protobuf:"bytes,6,opt,name=cat" json:"cat,omitempty"`
+	Frequency int64                `protobuf:"varint,3,opt,name=frequency" json:"frequency,omitempty"`
+	UserAgent *Targeting_UserAgent `protobuf:"bytes,4,opt,name=user_agent,json=userAgent" json:"user_agent,omitempty"`
+	// Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
+	Carrier *Targeting_ListMatch `protobuf:"bytes,5,opt,name=carrier" json:"carrier,omitempty"`
+	// IAB content categories as it's declared in the "site.cat" or "app.cat" fields in the bid request.
+	Cat *Targeting_ListMatch `protobuf:"bytes,6,opt,name=cat" json:"cat,omitempty"`
+	// The general type of device as it's declared in the "device.devicetype" field in the bid request.
+	// Refer to List 5.17 in the Open RTB spec.
 	DeviceType *Targeting_ListMatch `protobuf:"bytes,7,opt,name=device_type,json=deviceType" json:"device_type,omitempty"`
-	Domain     *Targeting_ListMatch `protobuf:"bytes,8,opt,name=domain" json:"domain,omitempty"`
-	Publisher  *Targeting_ListMatch `protobuf:"bytes,9,opt,name=publisher" json:"publisher,omitempty"`
-	Ssp        *Targeting_ListMatch `protobuf:"bytes,10,opt,name=ssp" json:"ssp,omitempty"`
-	Google     *Targeting_Google    `protobuf:"bytes,11,opt,name=google" json:"google,omitempty"`
+	// Site's domain is extracted from the "site.page" field in the bid request and compared with the populated list.
+	Domain *Targeting_ListMatch `protobuf:"bytes,8,opt,name=domain" json:"domain,omitempty"`
+	// Works by the "publisher.id" field in the bid request.
+	Publisher *Targeting_ListMatch `protobuf:"bytes,9,opt,name=publisher" json:"publisher,omitempty"`
+	// Works by the "ext.ssp" field in the bid request.
+	Ssp    *Targeting_ListMatch `protobuf:"bytes,10,opt,name=ssp" json:"ssp,omitempty"`
+	Google *Targeting_Google    `protobuf:"bytes,11,opt,name=google" json:"google,omitempty"`
 }
 
 func (m *Targeting) Reset()                    { *m = Targeting{} }
@@ -348,7 +392,7 @@ func (m *Targeting) GetGoogle() *Targeting_Google {
 	return nil
 }
 
-// Required for google network
+// Required for campaigns, which should be served in the Google Ad Exchange
 type Targeting_Google struct {
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId" json:"billing_id,omitempty"`
 }
@@ -359,8 +403,10 @@ func (*Targeting_Google) ProtoMessage()               {}
 func (*Targeting_Google) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10, 0} }
 
 type Targeting_Geo struct {
+	// Country code as it's populated in the "device.geo.country" field.
 	Country *Targeting_ListMatch `protobuf:"bytes,1,opt,name=country" json:"country,omitempty"`
-	City    *Targeting_ListMatch `protobuf:"bytes,2,opt,name=city" json:"city,omitempty"`
+	// City as it's populated in the "device.geo.city" field.
+	City *Targeting_ListMatch `protobuf:"bytes,2,opt,name=city" json:"city,omitempty"`
 }
 
 func (m *Targeting_Geo) Reset()                    { *m = Targeting_Geo{} }
@@ -383,7 +429,9 @@ func (m *Targeting_Geo) GetCity() *Targeting_ListMatch {
 }
 
 type Targeting_OS struct {
-	Name    string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// Device operating system as it's declared in the "device.os" field in the bid request.
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// Device operating system version as it's declared in the "device.osv" field in the bid request.
 	Version string `protobuf:"bytes,2,opt,name=version" json:"version,omitempty"`
 }
 
@@ -393,8 +441,10 @@ func (*Targeting_OS) ProtoMessage()               {}
 func (*Targeting_OS) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10, 2} }
 
 type Targeting_UserAgent struct {
-	Name   string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	Mobile bool   `protobuf:"varint,2,opt,name=mobile" json:"mobile,omitempty"`
+	// Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// If the flag is set to TRUE, the only mobile versions of the browser's user agent are passed.
+	Mobile bool `protobuf:"varint,2,opt,name=mobile" json:"mobile,omitempty"`
 }
 
 func (m *Targeting_UserAgent) Reset()                    { *m = Targeting_UserAgent{} }
@@ -445,6 +495,7 @@ const _ = grpc.SupportPackageIsVersion3
 // Client API for API service
 
 type APIClient interface {
+	// Return clients metricks for the specified client ID with breakdown by Campaign ID.
 	Report(ctx context.Context, in *ReportRequest, opts ...grpc.CallOption) (*ReportResponse, error)
 	SetConfig(ctx context.Context, in *SetConfigRequest, opts ...grpc.CallOption) (*SetConfigResponse, error)
 	GetConfig(ctx context.Context, in *GetConfigRequest, opts ...grpc.CallOption) (*Customer, error)
@@ -488,6 +539,7 @@ func (c *aPIClient) GetConfig(ctx context.Context, in *GetConfigRequest, opts ..
 // Server API for API service
 
 type APIServer interface {
+	// Return clients metricks for the specified client ID with breakdown by Campaign ID.
 	Report(context.Context, *ReportRequest) (*ReportResponse, error)
 	SetConfig(context.Context, *SetConfigRequest) (*SetConfigResponse, error)
 	GetConfig(context.Context, *GetConfigRequest) (*Customer, error)
