@@ -1,0 +1,234 @@
+syntax="proto3";
+
+package customer;
+
+message ReportRequest {
+  string client_id = 1;
+  string from_date = 2;
+  string to_date = 3;
+  
+  // Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
+  string format = 4;	
+}
+
+message ReportResponse {
+  string data = 1;
+}
+
+message SetConfigRequest {
+  Customer client = 1;
+}
+
+message SetConfigResponse {
+  string data = 1;
+}
+
+message GetConfigRequest {}
+
+message ConfigHistoryItem {
+  string id = 1;
+  string date = 2;
+  string diff = 3;
+  string author = 4;
+}
+
+service API {
+
+  // Return clients metricks for the specified client ID with breakdown by Campaign ID.
+  rpc Report(ReportRequest) returns (ReportResponse) {}                 
+  rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}        
+  rpc GetConfig(GetConfigRequest) returns (Customer) {}                 
+}
+
+message Customer {
+
+  // There should be at least one advertiser in the config.
+  map<string, Advertiser> advertisers = 1;	
+}
+
+message Advertiser {
+  string name = 1;
+  
+  // There should be at least one campaign for each advertiser.
+  map<string, Campaign> campaigns = 2;		
+  
+  // There should be at least one creative for each advertiser.
+  map<string, Creative> creatives = 3;		
+}
+
+message Campaign {
+
+  // System extention fields. Do not Edit.
+  string id = 2;
+  string client_id = 3;
+
+  // Required
+  message Pricing {
+  
+  // This is compared against ortb field "cur" from the bid request, 
+  // which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
+  string currency = 1;	
+	
+  // This number is sent into the bid response as the bid CPM price.
+  double bid = 2;		
+	
+  // This number divided by 1,000 (CPM) the campaign budget is decreased on the impression.
+  double impression = 3;	
+  }
+
+  message Budget {
+  
+  // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
+  // Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
+  double daily = 1;	
+  }
+
+  string name = 1;
+  repeated string creatives = 4;
+  
+  // IAB content categories of the campaign. Refer to List 5.1 in the openRTB spec.
+  // This is sent in the bid response as the "cat" field.
+  // This is compared with the "bcat" field in the bid request. If matched - the campaign is not bidded.
+  repeated string category = 5;		
+  Pricing pricing = 6;
+  Budget budget = 7;
+
+  // Required. If campaign has no targetings, please pass the empty object like {}. 
+  Targeting targeting = 8;
+  
+  // URL of the landing page without get parameters.
+  // This is sent to the "adomain" bid response field.
+  // The landing page's domain is compared with the "badv" field in the bid request. If matched - the campaign is not bidded.
+  repeated string landing_page_url = 9;	
+  
+  // The URL without the protocol prefix (http:// or https://) which will be called on the impression.
+  // {RANDOM} macro could be used for cachebusting.
+  // Incorrect Ex: http://www.tracker.com/?...
+  // Correct Ex: wwww.tracker.com/?...
+  // "http://" or "https://" will be added automatically based on the "imp.secure" flag into the bid request.
+  // Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
+  string impression_tracking_url = 10;
+}
+
+message Creative {
+  message Size {
+    int64 width = 1;
+    int64 height = 2;
+  }
+
+  string name = 1;
+  
+  // Please ignore this field.
+  string id = 2;		
+  
+  // Please ignore this field.
+  string ad_id = 3;		
+  
+  // Please populate this flag to TRUE in case the creative code has the "http://" requests 
+  // or impression_tracking_url doesn't have the valid SSL certificate.
+  bool insecure = 4;		
+  
+  // Available creative types: "3rd_party_banner", "video".
+  string type = 5;		
+  
+  // URL the user is sent to on click. Should contains the protocol (http:// or https://).
+  // This is required for the creatives which should be rotated in the Google Ad Exchange.
+  string click_url = 6;		
+
+  Size size = 7;
+  
+  // Creative's html snippet. Should contains valid html code.
+  // This field could contains the following macros:
+  // {CLICK_URL} will be resolved to the click URL handler.
+  // {CLICK_URL_ESC} will be resolved to the escaped click URL handler.
+  // {PUB_ID} will be resolved to the publisher id.
+  // Note: either {CLICK_URL} or {CLICK_URL_ESC} is required for the creatives which should be rotated in the Google Ad Exchange.
+  string html_content = 8;	
+
+  // Video ad duration in seconds. Required for the creative type "video".
+  // This is compared with the "video.minduration" and "video.maxduration" fields in the bid request.
+  // Creative's duration should be between these values to be eligible for bid.
+  int64 duration = 9;	
+  
+  // Creative's MIME type. This is compared with the "banner.mimes" field in the bid request.
+  // If no matches - creative is not eligible for bid.
+  repeated string mimes = 10;	
+  
+  // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
+  // This is compared with the "video.protocols" field in the bid request.
+  // If no matches - creative is not eligible for bid.
+  repeated string protocols = 11;	
+  
+  // The URL which returns the valid VAST XML.
+  // Required for the creative type "video".
+  string vast_url = 12;		
+}
+
+message Targeting {
+
+  // Required for campaigns, which should be served in the Google Ad Exchange
+  message Google {
+    string billing_id = 1;
+  }
+
+  message Geo {
+  
+  // Country code as it's populated in the "device.geo.country" field.
+  ListMatch country = 1;	
+	
+  // City as it's populated in the "device.geo.city" field.
+  ListMatch city = 2;	
+  }
+
+  message OS {
+  
+  // Device operating system as it's declared in the "device.os" field in the bid request.
+  string name = 1;	
+	
+  // Device operating system version as it's declared in the "device.osv" field in the bid request.
+  string version = 2;	
+  }
+
+  message UserAgent {
+  
+  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
+  string name = 1;	
+	
+  // If the flag is set to TRUE, the only mobile versions of the browser's user agent are passed.
+  bool mobile = 2;	
+  }
+
+  message ListMatch {
+    bool include = 1;
+    repeated string list = 2;
+  }
+
+  Geo geo = 1;
+  repeated OS os = 2;
+  
+  // The minimum delay between any two impressions for the single user in the one ad network in seconds.
+  // Works by "user.id" field in the bid request.
+  int64 frequency = 3;		
+  UserAgent user_agent = 4;
+
+  // Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
+  ListMatch carrier = 5;	
+  
+  // IAB content categories as it's declared in the "site.cat" or "app.cat" fields in the bid request.
+  ListMatch cat = 6;		
+  
+  // The general type of device as it's declared in the "device.devicetype" field in the bid request.
+  // Refer to List 5.17 in the Open RTB spec.
+  ListMatch device_type = 7;	
+  
+  // Site's domain is extracted from the "site.page" field in the bid request and compared with the populated list.
+  ListMatch domain = 8;		
+  
+  // Works by the "publisher.id" field in the bid request.
+  ListMatch publisher = 9;	
+  
+  // Works by the "ext.ssp" field in the bid request.
+  ListMatch ssp = 10;		
+
+  Google google = 11;
+}
