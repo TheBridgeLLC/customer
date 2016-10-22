@@ -231,4 +231,6 @@ message Targeting {
   ListMatch ssp = 10;		
 
   Google google = 11;
+
+  ListMatch network = 12;
 }
