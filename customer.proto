@@ -65,22 +65,22 @@ message Campaign {
   // Required
   message Pricing {
 
-  // This is compared against ortb field "cur" from the bid request,
-  // which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
-  string currency = 1;
+    // This is compared against ortb field "cur" from the bid request,
+    // which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
+    string currency = 1;
 
-  // This number is sent into the bid response as the bid CPM price.
-  double bid = 2;
+    // This number is sent into the bid response as the bid CPM price.
+    double bid = 2;
 
-  // This number divided by 1,000 (CPM) the campaign budget is decreased on the impression.
-  double impression = 3;
+    // This number divided by 1,000 (CPM) the campaign budget is decreased on the impression.
+    double impression = 3;
   }
 
   message Budget {
 
-  // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
-  // Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
-  double daily = 1;
+    // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
+    // Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
+    double daily = 1;
   }
 
   string name = 1;
@@ -176,29 +176,29 @@ message Targeting {
 
   message Geo {
 
-  // Country code as it's populated in the "device.geo.country" field.
-  ListMatch country = 1;
+    // Country code as it's populated in the "device.geo.country" field.
+    ListMatch country = 1;
 
-  // City as it's populated in the "device.geo.city" field.
-  ListMatch city = 2;
+    // City as it's populated in the "device.geo.city" field.
+    ListMatch city = 2;
   }
 
   message OS {
 
-  // Device operating system as it's declared in the "device.os" field in the bid request.
-  string name = 1;
+    // Device operating system as it's declared in the "device.os" field in the bid request.
+    string name = 1;
 
-  // Device operating system version as it's declared in the "device.osv" field in the bid request.
-  string version = 2;
+    // Device operating system version as it's declared in the "device.osv" field in the bid request.
+    string version = 2;
   }
 
   message UserAgent {
 
-  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
-  string name = 1;
+    // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
+    string name = 1;
 
-  // If the flag is set to TRUE, the only mobile versions of the browser's user agent are passed.
-  bool mobile = 2;
+    // If the flag is set to TRUE, the only mobile versions of the browser's user agent are passed.
+    bool mobile = 2;
   }
 
   message ListMatch {
@@ -234,4 +234,6 @@ message Targeting {
   ListMatch ssp = 10;
 
   Google google = 11;
+
+  ListMatch network = 12;
 }
