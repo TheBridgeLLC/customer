@@ -234,6 +234,7 @@ message Targeting {
   ListMatch ssp = 10;
 
   Google google = 11;
-
+  
+  // Connected ad networks targeting. Please ask your account manager to obtain the available networks list.
   ListMatch network = 12;
 }
