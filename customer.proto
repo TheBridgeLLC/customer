@@ -33,7 +33,6 @@ message ConfigHistoryItem {
 }
 
 service API {
-
   // Return clients metricks for the specified client ID with breakdown by Campaign ID.
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
@@ -41,7 +40,6 @@ service API {
 }
 
 message Customer {
-
   // There should be at least one advertiser in the config.
   map<string, Advertiser> advertisers = 1;
 }
@@ -57,14 +55,12 @@ message Advertiser {
 }
 
 message Campaign {
-
   // System extention fields. Do not Edit.
   string id = 2;
   string client_id = 3;
 
   // Required
   message Pricing {
-
     // This is compared against ortb field "cur" from the bid request,
     // which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
     string currency = 1;
@@ -77,7 +73,6 @@ message Campaign {
   }
 
   message Budget {
-
     // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
     // Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
     double daily = 1;
@@ -173,14 +168,12 @@ message Creative {
 }
 
 message Targeting {
-
   // Required for campaigns, which should be served in the Google Ad Exchange
   message Google {
     string billing_id = 1;
   }
 
   message Geo {
-
     // Country code as it's populated in the "device.geo.country" field.
     ListMatch country = 1;
 
@@ -189,7 +182,6 @@ message Targeting {
   }
 
   message OS {
-
     // Device operating system as it's declared in the "device.os" field in the bid request.
     string name = 1;
 
@@ -198,7 +190,6 @@ message Targeting {
   }
 
   message UserAgent {
-
     // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
     string name = 1;
 
