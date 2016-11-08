@@ -234,5 +234,6 @@ message Targeting {
   // Connected ad networks targeting. Please ask your account manager to obtain the available networks list.
   ListMatch network = 12;
 
+  // Works by the "device.ip" field in the bid request.
   ListMatch ip = 13;
 }
