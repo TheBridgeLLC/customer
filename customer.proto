@@ -118,11 +118,15 @@ message Native {
     message Title {
         string text = 1;
     }
+    
     message Image {
         string url = 1;
         int64 width = 2;
         int64 height = 3;
     }
+    
+    Title title = 1;
+    Image image = 2;
   }
   repeated Asset assets = 1;
 }
