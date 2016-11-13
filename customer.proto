@@ -113,6 +113,20 @@ message Campaign {
   string stop_date = 12;
 }
 
+message Native {
+  message Asset {
+    message Title {
+        string text = 1;
+    }
+    message Image {
+        string url = 1;
+        int64 width = 2;
+        int64 height = 3;
+    }
+  }
+  repeated Asset assets = 1;
+}
+
 message Creative {
   message Size {
     int64 width = 1;
@@ -165,6 +179,8 @@ message Creative {
   // The URL which returns the valid VAST XML.
   // Required for the creative type "video".
   string vast_url = 12;
+
+  Native native = 13;
 }
 
 message Targeting {
