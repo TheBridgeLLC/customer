@@ -323,6 +323,7 @@ type Targeting struct {
 	Google *Targeting_Google    `protobuf:"bytes,11,opt,name=google" json:"google,omitempty"`
 	// Connected ad networks targeting. Please ask your account manager to obtain the available networks list.
 	Network *Targeting_ListMatch `protobuf:"bytes,12,opt,name=network" json:"network,omitempty"`
+	// Works by the "device.ip" field in the bid request.
 	Ip      *Targeting_ListMatch `protobuf:"bytes,13,opt,name=ip" json:"ip,omitempty"`
 	RangeIp []string             `protobuf:"bytes,14,rep,name=range_ip,json=rangeIp" json:"range_ip,omitempty"`
 }
@@ -427,9 +428,11 @@ func (*Targeting_Google) ProtoMessage()               {}
 func (*Targeting_Google) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10, 0} }
 
 type Targeting_Geo struct {
-	// Country code as it's populated in the "device.geo.country" field.
+	// Country code using ISO-3166-1-alpha-3.
+	// Works by the "device.geo.country" field in the bid request.
 	Country *Targeting_ListMatch `protobuf:"bytes,1,opt,name=country" json:"country,omitempty"`
-	// City as it's populated in the "device.geo.city" field.
+	// City using United Nations Code for Trade & Transport Locations.
+	// Works by the "device.geo.city" field in the bid request.
 	City *Targeting_ListMatch `protobuf:"bytes,2,opt,name=city" json:"city,omitempty"`
 }
 
