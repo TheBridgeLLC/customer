@@ -107,7 +107,7 @@ message Campaign {
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is started daily at this time.
   string start_date = 11;
-  
+
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   string stop_date = 12;
@@ -238,4 +238,6 @@ message Targeting {
 
   // Works by the "device.ip" field in the bid request.
   ListMatch ip = 13;
+
+  repeated string range_ip = 14;
 }
