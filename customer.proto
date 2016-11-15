@@ -4,7 +4,11 @@ package customer;
 
 message ReportRequest {
   string client_id = 1;
+
+  // From date in the 'YYYY-MM-DD' format
   string from_date = 2;
+
+  // To date in the 'YYYY-MM-DD' format
   string to_date = 3;
 
   // Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
@@ -107,7 +111,7 @@ message Campaign {
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is started daily at this time.
   string start_date = 11;
-  
+
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   string stop_date = 12;
@@ -118,13 +122,13 @@ message Native {
     message Title {
         string text = 1;
     }
-    
+
     message Image {
         string url = 1;
         int64 width = 2;
         int64 height = 3;
     }
-    
+
     Title title = 1;
     Image image = 2;
   }
@@ -194,10 +198,12 @@ message Targeting {
   }
 
   message Geo {
-    // Country code as it's populated in the "device.geo.country" field.
+    // Country code using ISO-3166-1-alpha-3.
+    // Works by the "device.geo.country" field in the bid request.
     ListMatch country = 1;
 
-    // City as it's populated in the "device.geo.city" field.
+    // City using United Nations Code for Trade & Transport Locations.
+    // Works by the "device.geo.city" field in the bid request.
     ListMatch city = 2;
   }
 
@@ -254,5 +260,8 @@ message Targeting {
   // Connected ad networks targeting. Please ask your account manager to obtain the available networks list.
   ListMatch network = 12;
 
+  // Works by the "device.ip" field in the bid request.
   ListMatch ip = 13;
+
+  repeated string range_ip = 14;
 }
