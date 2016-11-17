@@ -4,10 +4,10 @@ package customer;
 
 message ReportRequest {
   string client_id = 1;
-  
+
   // From date in the 'YYYY-MM-DD' format
   string from_date = 2;
-  
+
   // To date in the 'YYYY-MM-DD' format
   string to_date = 3;
 
@@ -164,11 +164,13 @@ message Creative {
   // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
   // This is compared with the "video.protocols" field in the bid request.
   // If no matches - creative is not eligible for bid.
-  repeated string protocols = 11;
+  repeated int64 protocols = 11;
 
   // The URL which returns the valid VAST XML.
   // Required for the creative type "video".
   string vast_url = 12;
+
+  repeated int64 attributes = 13;
 }
 
 message Targeting {
