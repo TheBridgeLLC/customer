@@ -4,10 +4,10 @@ package customer;
 
 message ReportRequest {
   string client_id = 1;
-  
+
   // From date in the 'YYYY-MM-DD' format
   string from_date = 2;
-  
+
   // To date in the 'YYYY-MM-DD' format
   string to_date = 3;
 
@@ -115,6 +115,8 @@ message Campaign {
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   string stop_date = 12;
+
+  bool inactive = 13;
 }
 
 message Creative {
