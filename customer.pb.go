@@ -59,6 +59,34 @@ func (m *ReportRequest) String() string            { return proto.CompactTextStr
 func (*ReportRequest) ProtoMessage()               {}
 func (*ReportRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
+func (m *ReportRequest) GetClientId() string {
+	if m != nil {
+		return m.ClientId
+	}
+	return ""
+}
+
+func (m *ReportRequest) GetFromDate() string {
+	if m != nil {
+		return m.FromDate
+	}
+	return ""
+}
+
+func (m *ReportRequest) GetToDate() string {
+	if m != nil {
+		return m.ToDate
+	}
+	return ""
+}
+
+func (m *ReportRequest) GetFormat() string {
+	if m != nil {
+		return m.Format
+	}
+	return ""
+}
+
 type ReportResponse struct {
 	Data string `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
 }
@@ -67,6 +95,13 @@ func (m *ReportResponse) Reset()                    { *m = ReportResponse{} }
 func (m *ReportResponse) String() string            { return proto.CompactTextString(m) }
 func (*ReportResponse) ProtoMessage()               {}
 func (*ReportResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+func (m *ReportResponse) GetData() string {
+	if m != nil {
+		return m.Data
+	}
+	return ""
+}
 
 type SetConfigRequest struct {
 	Client *Customer `protobuf:"bytes,1,opt,name=client" json:"client,omitempty"`
@@ -93,6 +128,13 @@ func (m *SetConfigResponse) String() string            { return proto.CompactTex
 func (*SetConfigResponse) ProtoMessage()               {}
 func (*SetConfigResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
+func (m *SetConfigResponse) GetData() string {
+	if m != nil {
+		return m.Data
+	}
+	return ""
+}
+
 type GetConfigRequest struct {
 }
 
@@ -112,6 +154,34 @@ func (m *ConfigHistoryItem) Reset()                    { *m = ConfigHistoryItem{
 func (m *ConfigHistoryItem) String() string            { return proto.CompactTextString(m) }
 func (*ConfigHistoryItem) ProtoMessage()               {}
 func (*ConfigHistoryItem) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *ConfigHistoryItem) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ConfigHistoryItem) GetDate() string {
+	if m != nil {
+		return m.Date
+	}
+	return ""
+}
+
+func (m *ConfigHistoryItem) GetDiff() string {
+	if m != nil {
+		return m.Diff
+	}
+	return ""
+}
+
+func (m *ConfigHistoryItem) GetAuthor() string {
+	if m != nil {
+		return m.Author
+	}
+	return ""
+}
 
 type Customer struct {
 	// There should be at least one advertiser in the config.
@@ -142,6 +212,13 @@ func (m *Advertiser) Reset()                    { *m = Advertiser{} }
 func (m *Advertiser) String() string            { return proto.CompactTextString(m) }
 func (*Advertiser) ProtoMessage()               {}
 func (*Advertiser) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+func (m *Advertiser) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
 
 func (m *Advertiser) GetCampaigns() map[string]*Campaign {
 	if m != nil {
@@ -195,6 +272,41 @@ func (m *Campaign) String() string            { return proto.CompactTextString(m
 func (*Campaign) ProtoMessage()               {}
 func (*Campaign) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
 
+func (m *Campaign) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Campaign) GetClientId() string {
+	if m != nil {
+		return m.ClientId
+	}
+	return ""
+}
+
+func (m *Campaign) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Campaign) GetCreatives() []string {
+	if m != nil {
+		return m.Creatives
+	}
+	return nil
+}
+
+func (m *Campaign) GetCategory() []string {
+	if m != nil {
+		return m.Category
+	}
+	return nil
+}
+
 func (m *Campaign) GetPricing() *Campaign_Pricing {
 	if m != nil {
 		return m.Pricing
@@ -216,6 +328,34 @@ func (m *Campaign) GetTargeting() *Targeting {
 	return nil
 }
 
+func (m *Campaign) GetLandingPageUrl() []string {
+	if m != nil {
+		return m.LandingPageUrl
+	}
+	return nil
+}
+
+func (m *Campaign) GetImpressionTrackingUrl() string {
+	if m != nil {
+		return m.ImpressionTrackingUrl
+	}
+	return ""
+}
+
+func (m *Campaign) GetStartDate() string {
+	if m != nil {
+		return m.StartDate
+	}
+	return ""
+}
+
+func (m *Campaign) GetStopDate() string {
+	if m != nil {
+		return m.StopDate
+	}
+	return ""
+}
+
 // Required
 type Campaign_Pricing struct {
 	// This is compared against ortb field "cur" from the bid request,
@@ -232,6 +372,27 @@ func (m *Campaign_Pricing) String() string            { return proto.CompactText
 func (*Campaign_Pricing) ProtoMessage()               {}
 func (*Campaign_Pricing) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8, 0} }
 
+func (m *Campaign_Pricing) GetCurrency() string {
+	if m != nil {
+		return m.Currency
+	}
+	return ""
+}
+
+func (m *Campaign_Pricing) GetBid() float64 {
+	if m != nil {
+		return m.Bid
+	}
+	return 0
+}
+
+func (m *Campaign_Pricing) GetImpression() float64 {
+	if m != nil {
+		return m.Impression
+	}
+	return 0
+}
+
 type Campaign_Budget struct {
 	// Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
 	// Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
@@ -242,6 +403,13 @@ func (m *Campaign_Budget) Reset()                    { *m = Campaign_Budget{} }
 func (m *Campaign_Budget) String() string            { return proto.CompactTextString(m) }
 func (*Campaign_Budget) ProtoMessage()               {}
 func (*Campaign_Budget) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8, 1} }
+
+func (m *Campaign_Budget) GetDaily() float64 {
+	if m != nil {
+		return m.Daily
+	}
+	return 0
+}
 
 type Native struct {
 	Assets []*Native_Asset `protobuf:"bytes,1,rep,name=assets" json:"assets,omitempty"`
@@ -292,6 +460,13 @@ func (m *Native_Asset_Title) String() string            { return proto.CompactTe
 func (*Native_Asset_Title) ProtoMessage()               {}
 func (*Native_Asset_Title) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9, 0, 0} }
 
+func (m *Native_Asset_Title) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
 type Native_Asset_Image struct {
 	Url    string `protobuf:"bytes,1,opt,name=url" json:"url,omitempty"`
 	Width  int64  `protobuf:"varint,2,opt,name=width" json:"width,omitempty"`
@@ -303,6 +478,34 @@ func (m *Native_Asset_Image) Reset()                    { *m = Native_Asset_Imag
 func (m *Native_Asset_Image) String() string            { return proto.CompactTextString(m) }
 func (*Native_Asset_Image) ProtoMessage()               {}
 func (*Native_Asset_Image) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9, 0, 1} }
+
+func (m *Native_Asset_Image) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *Native_Asset_Image) GetWidth() int64 {
+	if m != nil {
+		return m.Width
+	}
+	return 0
+}
+
+func (m *Native_Asset_Image) GetHeight() int64 {
+	if m != nil {
+		return m.Height
+	}
+	return 0
+}
+
+func (m *Native_Asset_Image) GetMime() string {
+	if m != nil {
+		return m.Mime
+	}
+	return ""
+}
 
 type Creative struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
@@ -351,6 +554,48 @@ func (m *Creative) String() string            { return proto.CompactTextString(m
 func (*Creative) ProtoMessage()               {}
 func (*Creative) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
 
+func (m *Creative) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Creative) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Creative) GetAdId() string {
+	if m != nil {
+		return m.AdId
+	}
+	return ""
+}
+
+func (m *Creative) GetInsecure() bool {
+	if m != nil {
+		return m.Insecure
+	}
+	return false
+}
+
+func (m *Creative) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *Creative) GetClickUrl() string {
+	if m != nil {
+		return m.ClickUrl
+	}
+	return ""
+}
+
 func (m *Creative) GetSize() *Creative_Size {
 	if m != nil {
 		return m.Size
@@ -358,9 +603,51 @@ func (m *Creative) GetSize() *Creative_Size {
 	return nil
 }
 
+func (m *Creative) GetHtmlContent() string {
+	if m != nil {
+		return m.HtmlContent
+	}
+	return ""
+}
+
+func (m *Creative) GetDuration() int64 {
+	if m != nil {
+		return m.Duration
+	}
+	return 0
+}
+
+func (m *Creative) GetMimes() []string {
+	if m != nil {
+		return m.Mimes
+	}
+	return nil
+}
+
+func (m *Creative) GetProtocols() []int64 {
+	if m != nil {
+		return m.Protocols
+	}
+	return nil
+}
+
+func (m *Creative) GetVastUrl() string {
+	if m != nil {
+		return m.VastUrl
+	}
+	return ""
+}
+
 func (m *Creative) GetNative() *Native {
 	if m != nil {
 		return m.Native
+	}
+	return nil
+}
+
+func (m *Creative) GetAttributes() []int64 {
+	if m != nil {
+		return m.Attributes
 	}
 	return nil
 }
@@ -374,6 +661,20 @@ func (m *Creative_Size) Reset()                    { *m = Creative_Size{} }
 func (m *Creative_Size) String() string            { return proto.CompactTextString(m) }
 func (*Creative_Size) ProtoMessage()               {}
 func (*Creative_Size) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10, 0} }
+
+func (m *Creative_Size) GetWidth() int64 {
+	if m != nil {
+		return m.Width
+	}
+	return 0
+}
+
+func (m *Creative_Size) GetHeight() int64 {
+	if m != nil {
+		return m.Height
+	}
+	return 0
+}
 
 type Targeting struct {
 	Geo *Targeting_Geo  `protobuf:"bytes,1,opt,name=geo" json:"geo,omitempty"`
@@ -420,6 +721,13 @@ func (m *Targeting) GetOs() []*Targeting_OS {
 		return m.Os
 	}
 	return nil
+}
+
+func (m *Targeting) GetFrequency() int64 {
+	if m != nil {
+		return m.Frequency
+	}
+	return 0
 }
 
 func (m *Targeting) GetUserAgent() *Targeting_UserAgent {
@@ -492,6 +800,13 @@ func (m *Targeting) GetIp() *Targeting_ListMatch {
 	return nil
 }
 
+func (m *Targeting) GetRangeIp() []string {
+	if m != nil {
+		return m.RangeIp
+	}
+	return nil
+}
+
 // Required for campaigns, which should be served in the Google Ad Exchange
 type Targeting_Google struct {
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId" json:"billing_id,omitempty"`
@@ -501,6 +816,13 @@ func (m *Targeting_Google) Reset()                    { *m = Targeting_Google{} 
 func (m *Targeting_Google) String() string            { return proto.CompactTextString(m) }
 func (*Targeting_Google) ProtoMessage()               {}
 func (*Targeting_Google) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11, 0} }
+
+func (m *Targeting_Google) GetBillingId() string {
+	if m != nil {
+		return m.BillingId
+	}
+	return ""
+}
 
 type Targeting_Geo struct {
 	// Country code using ISO-3166-1-alpha-3.
@@ -542,6 +864,20 @@ func (m *Targeting_OS) String() string            { return proto.CompactTextStri
 func (*Targeting_OS) ProtoMessage()               {}
 func (*Targeting_OS) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11, 2} }
 
+func (m *Targeting_OS) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Targeting_OS) GetVersion() string {
+	if m != nil {
+		return m.Version
+	}
+	return ""
+}
+
 type Targeting_UserAgent struct {
 	// Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
@@ -554,6 +890,20 @@ func (m *Targeting_UserAgent) String() string            { return proto.CompactT
 func (*Targeting_UserAgent) ProtoMessage()               {}
 func (*Targeting_UserAgent) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11, 3} }
 
+func (m *Targeting_UserAgent) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Targeting_UserAgent) GetMobile() bool {
+	if m != nil {
+		return m.Mobile
+	}
+	return false
+}
+
 type Targeting_ListMatch struct {
 	Include bool     `protobuf:"varint,1,opt,name=include" json:"include,omitempty"`
 	List    []string `protobuf:"bytes,2,rep,name=list" json:"list,omitempty"`
@@ -563,6 +913,20 @@ func (m *Targeting_ListMatch) Reset()                    { *m = Targeting_ListMa
 func (m *Targeting_ListMatch) String() string            { return proto.CompactTextString(m) }
 func (*Targeting_ListMatch) ProtoMessage()               {}
 func (*Targeting_ListMatch) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11, 4} }
+
+func (m *Targeting_ListMatch) GetInclude() bool {
+	if m != nil {
+		return m.Include
+	}
+	return false
+}
+
+func (m *Targeting_ListMatch) GetList() []string {
+	if m != nil {
+		return m.List
+	}
+	return nil
+}
 
 func init() {
 	proto.RegisterType((*ReportRequest)(nil), "customer.ReportRequest")
@@ -596,7 +960,7 @@ var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion3
+const _ = grpc.SupportPackageIsVersion4
 
 // Client API for API service
 
@@ -727,7 +1091,7 @@ var _API_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: fileDescriptor0,
+	Metadata: "customer/customer.proto",
 }
 
 func init() { proto.RegisterFile("customer/customer.proto", fileDescriptor0) }
