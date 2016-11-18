@@ -4,7 +4,11 @@ package customer;
 
 message ReportRequest {
   string client_id = 1;
+  
+  // From date in the 'YYYY-MM-DD' format
   string from_date = 2;
+  
+  // To date in the 'YYYY-MM-DD' format
   string to_date = 3;
 
   // Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
@@ -129,6 +133,8 @@ message Creative {
 
   // Please populate this flag to TRUE in case the creative code has the "http://" requests
   // or impression_tracking_url doesn't have the valid SSL certificate.
+  // Please note that some ad networks (google for example) require all the served content to be secured.
+  // For those networks you will not receive bids for the creatives with the insecure flag populated.
   bool insecure = 4;
 
   // Available creative types: "3rd_party_banner", "video".
