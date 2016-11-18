@@ -154,8 +154,12 @@ message Creative {
   // or impression_tracking_url doesn't have the valid SSL certificate.
   bool insecure = 4;
 
-  // Available creative types: "3rd_party_banner", "video".
-  string type = 5;
+  enum Type {
+    video = 0;
+    banner = 1 [deprecated=true];
+  }
+  // Available creative types: "3rd_party_banner", "video", "native".
+  Type type = 5;
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
   // This is required for the creatives which should be rotated in the Google Ad Exchange.
