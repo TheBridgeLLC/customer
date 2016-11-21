@@ -515,6 +515,8 @@ type Creative struct {
 	AdId string `protobuf:"bytes,3,opt,name=ad_id,json=adId" json:"ad_id,omitempty"`
 	// Please populate this flag to TRUE in case the creative code has the "http://" requests
 	// or impression_tracking_url doesn't have the valid SSL certificate.
+	// Please note that some ad networks (google for example) require all the served content to be secured.
+	// For those networks you will not receive bids for the creatives with the insecure flag populated.
 	Insecure bool `protobuf:"varint,4,opt,name=insecure" json:"insecure,omitempty"`
 	// Available creative types: "3rd_party_banner", "video".
 	Type string `protobuf:"bytes,5,opt,name=type" json:"type,omitempty"`
