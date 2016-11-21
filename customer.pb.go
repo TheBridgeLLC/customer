@@ -708,8 +708,10 @@ type Targeting struct {
 	// Connected ad networks targeting. Please ask your account manager to obtain the available networks list.
 	Network *Targeting_ListMatch `protobuf:"bytes,12,opt,name=network" json:"network,omitempty"`
 	// Works by the "device.ip" field in the bid request.
-	Ip      *Targeting_ListMatch `protobuf:"bytes,13,opt,name=ip" json:"ip,omitempty"`
-	RangeIp []string             `protobuf:"bytes,14,rep,name=range_ip,json=rangeIp" json:"range_ip,omitempty"`
+	Ip *Targeting_ListMatch `protobuf:"bytes,13,opt,name=ip" json:"ip,omitempty"`
+	// Please use the "255.255.255.255/n" format for the ip ranges where "n" is the number of the first bits in the subnet mask.
+	// For example "20.78.168.0/21" represents IPv4 addresses between "220.78.168.0" and "220.78.175.255"
+	RangeIp []string `protobuf:"bytes,14,rep,name=range_ip,json=rangeIp" json:"range_ip,omitempty"`
 }
 
 func (m *Targeting) Reset()                    { *m = Targeting{} }
