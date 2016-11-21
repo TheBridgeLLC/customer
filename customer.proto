@@ -268,5 +268,7 @@ message Targeting {
   // Works by the "device.ip" field in the bid request.
   ListMatch ip = 13;
 
+  // Please use the "255.255.255.255/n" format for the ip ranges where "n" is the number of the first bits in the subnet mask.
+  // For example "20.78.168.0/21" represents IPv4 addresses between "220.78.168.0" and "220.78.175.255"
   repeated string range_ip = 14;
 }
