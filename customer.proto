@@ -195,6 +195,9 @@ message Creative {
 
   Native native = 13;
 
+  // IAB creative attributes. Refer to List 5.3 in the openRTB spec.
+  // This is sent in the bid response in the "bid.attr" field.
+  // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
 }
 
