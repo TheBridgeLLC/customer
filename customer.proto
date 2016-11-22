@@ -115,6 +115,8 @@ message Campaign {
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   string stop_date = 12;
+
+  bool inactive = 13;
 }
 
 message Native {
@@ -189,13 +191,15 @@ message Creative {
   // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
   // This is compared with the "video.protocols" field in the bid request.
   // If no matches - creative is not eligible for bid.
-  repeated string protocols = 11;
+  repeated int64 protocols = 11;
 
   // The URL which returns the valid VAST XML.
   // Required for the creative type "video".
   string vast_url = 12;
 
   Native native = 13;
+
+  repeated int64 attributes = 14;
 }
 
 message Targeting {
@@ -270,5 +274,7 @@ message Targeting {
   // Works by the "device.ip" field in the bid request.
   ListMatch ip = 13;
 
+  // Please use the "255.255.255.255/n" format for the ip ranges where "n" is the number of the first bits in the subnet mask.
+  // For example "20.78.168.0/21" represents IPv4 addresses between "220.78.168.0" and "220.78.175.255"
   repeated string range_ip = 14;
 }
