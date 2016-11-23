@@ -244,6 +244,7 @@ message Targeting {
   UserAgent user_agent = 4;
 
   // Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
+  // For Google Ad Exchange use the Criterion ID string from this list to target: https://developers.google.com/adwords/api/docs/appendix/mobilecarriers.csv
   ListMatch carrier = 5;
 
   // IAB content categories as it's declared in the "site.cat" or "app.cat" fields in the bid request.
