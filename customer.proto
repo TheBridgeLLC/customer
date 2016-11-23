@@ -138,6 +138,13 @@ message Native {
   repeated Asset assets = 1;
 }
 
+enum CreativeType {
+  third_party_banner = 0;
+  video = 1;
+  native = 2;
+  banner = 3; // deprecated
+}
+
 message Creative {
   message Size {
     int64 width = 1;
@@ -158,12 +165,11 @@ message Creative {
   // For those networks you will not receive bids for the creatives with the insecure flag populated.
   bool insecure = 4;
 
-  enum Type {
-    video = 0;
-    banner = 1 [deprecated=true];
-  }
-  // Available creative types: "3rd_party_banner", "video", "native".
-  Type type = 5;
+  // Available creative types:
+  // 0 or blank - "third_party_banner";
+  // 1 -"video";
+  // 2 - "native".
+  CreativeType type = 5;
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
   // This is required for the creatives which should be rotated in the Google Ad Exchange.
@@ -277,4 +283,11 @@ message Targeting {
   // Please use the "255.255.255.255/n" format for the ip ranges where "n" is the number of the first bits in the subnet mask.
   // For example "20.78.168.0/21" represents IPv4 addresses between "220.78.168.0" and "220.78.175.255"
   repeated string range_ip = 14;
+}
+
+enum Network {
+  bidswitch = 0;
+  google = 1;
+  mirs = 2;
+  advmaker = 3;
 }
