@@ -209,7 +209,7 @@ message Targeting {
     // Works by the "device.geo.country" field in the bid request.
     ListMatch country = 1;
 
-    // City using United Nations Code for Trade & Transport Locations.
+    // City using United Nations Code for Trade & Transport Locations: : http://www.unece.org/cefact/locode/service/location.html
     // Works by the "device.geo.city" field in the bid request.
     ListMatch city = 2;
   }
