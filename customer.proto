@@ -116,6 +116,7 @@ message Campaign {
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   string stop_date = 12;
 
+  // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
   bool inactive = 13;
 }
 
