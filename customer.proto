@@ -173,6 +173,10 @@ message Creative {
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
   // This is required for the creatives which should be rotated in the Google Ad Exchange.
+  // If you use some ad server you might need to generate the click URL dynamic instead of populate it in the config.
+  // For this just put the escaped vertion of the click URL in the "html_content" of the creative right after the click macro.
+  // Valid example: {CLICK_URL}http%3A%2F%2Flanding-page.com
+  // Invalid example: {CLICK_URL}http://landing-page.com
   string click_url = 6;
 
   Size size = 7;
