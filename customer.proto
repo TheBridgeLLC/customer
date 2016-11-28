@@ -299,4 +299,5 @@ enum Network {
   google = 1;
   mirs = 2;
   advmaker = 3;
+  smartrtb = 4;
 }
