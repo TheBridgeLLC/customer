@@ -144,6 +144,7 @@ enum CreativeType {
   video = 1;
   native = 2;
   banner = 3; // deprecated
+  interstitial = 4;
 }
 
 message Creative {
@@ -168,8 +169,9 @@ message Creative {
 
   // Available creative types:
   // 0 or blank - "third_party_banner";
-  // 1 -"video";
-  // 2 - "native".
+  // 1 - "video";
+  // 2 - "native"
+  // 4 - "interstitial".
   CreativeType type = 5;
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
