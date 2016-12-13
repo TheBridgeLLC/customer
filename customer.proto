@@ -70,15 +70,17 @@ message Campaign {
     string currency = 1;
 
     // This number is sent into the bid response as the bid CPM price.
+    // This field is required and should be more then zero.
     double bid = 2;
 
     // This number divided by 1,000 (CPM) the campaign budget is decreased on the impression.
+    // This field is required and should be not less then pricing.bid
     double impression = 3;
   }
 
   message Budget {
     // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
-    // Please be carefull: if you set zero daily budget - that means no limit, so the campaign will spend money unstoppable.
+    // This field is required and should be more the zero.
     double daily = 1;
   }
 
@@ -100,12 +102,10 @@ message Campaign {
   // The landing page's domain is compared with the "badv" field in the bid request. If matched - the campaign is not bidded.
   repeated string landing_page_url = 9;
 
-  // The URL without the protocol prefix (http:// or https://) which will be called on the impression.
+  // The URL which will be called on the impression.
   // {RANDOM} macro could be used for cachebusting.
-  // Incorrect Ex: http://www.tracker.com/?...
-  // Correct Ex: wwww.tracker.com/?...
-  // "http://" or "https://" will be added automatically based on the "imp.secure" flag into the bid request.
   // Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
+  // Note: if the campaign has at least one creative with the "insecure" flag populated - this URL should has the "http://" protocol.
   string impression_tracking_url = 10;
 
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
@@ -190,6 +190,7 @@ message Creative {
   // {CLICK_URL_ESC} will be resolved to the escaped click URL handler.
   // {PUB_ID} will be resolved to the publisher id.
   // Note: either {CLICK_URL} or {CLICK_URL_ESC} is required for the creatives which should be rotated in the Google Ad Exchange.
+  // This field size should not exceed 8Kb.
   string html_content = 8;
 
   // Video ad duration in seconds. Required for the creative type "video".
