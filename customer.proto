@@ -217,6 +217,8 @@ message Creative {
   // This is sent in the bid response in the "bid.attr" field.
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
+
+  int64 skipoffset = 15;
 }
 
 message Targeting {
@@ -296,7 +298,7 @@ message Targeting {
   // For example "20.78.168.0/21" represents IPv4 addresses between "220.78.168.0" and "220.78.175.255"
   repeated string range_ip = 14;
 
-  // This targeting search the substring into the "site.page" field of the bid request. 
+  // This targeting search the substring into the "site.page" field of the bid request.
   // For example if you target to include the "news.ru/sport" string,
   // the site.page "http://www.news.ru/sports-and-hobbies/article.html" will pass
   // and the "http://www.news.ru/team-sport" will not.
