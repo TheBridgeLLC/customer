@@ -217,6 +217,8 @@ message Creative {
   // This is sent in the bid response in the "bid.attr" field.
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
+
+  int64 skipoffset = 15;
 }
 
 message Targeting {
