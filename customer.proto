@@ -235,6 +235,8 @@ message Targeting {
     // City using United Nations Code for Trade & Transport Locations: : http://www.unece.org/cefact/locode/service/location.html
     // Works by the "device.geo.city" field in the bid request.
     ListMatch city = 2;
+
+    ListMatch region = 3;
   }
 
   message OS {
