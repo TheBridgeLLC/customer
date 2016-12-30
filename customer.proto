@@ -218,6 +218,8 @@ message Creative {
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
 
+  // Number of seconds before the SKIP button is appeared in the video ad.
+  // Mandatory for the skippable video creatives.
   int64 skipoffset = 15;
 }
 
