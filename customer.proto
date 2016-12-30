@@ -304,6 +304,7 @@ message Targeting {
   // and the "http://www.news.ru/team-sport" will not.
   ListMatch url_contains = 15;
 
+  // Works by the "site.id" field in the bid request.
   ListMatch site_id = 16;
 }
 
