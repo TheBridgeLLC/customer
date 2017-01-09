@@ -289,7 +289,8 @@ message Targeting {
   // Works by the "publisher.id" field in the bid request.
   ListMatch publisher = 9;
 
-  // Works by the "ext.ssp" field in the bid request.
+  // Works by the "ext.ssp" field for the Bidswitch's request.
+  // Works by the "ext.exchange" field for the SmartRTB's request.
   ListMatch ssp = 10;
 
   Google google = 11;
