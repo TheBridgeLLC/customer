@@ -317,6 +317,9 @@ message Targeting {
 
   // Works by the "site.id" field in the bid request.
   ListMatch site_id = 16;
+
+  // Works by the "app.id" field in the bid request.
+  ListMatch app_id = 17;
 }
 
 enum Network {
