@@ -133,8 +133,14 @@ message Native {
 		string mime = 4;
     }
 
+    message Data {
+      string value = 1;
+      int64 type = 2;
+    }
+
     Title title = 1;
     Image image = 2;
+    Data data = 3;
   }
   repeated Asset assets = 1;
 }
