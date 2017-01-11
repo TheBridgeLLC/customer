@@ -227,6 +227,10 @@ message Creative {
   // Number of seconds before the SKIP button is appeared in the video ad.
   // Mandatory for the skippable video creatives.
   int64 skipoffset = 15;
+
+  string click_macro = 16;
+
+  string click_macro_esc = 17;
 }
 
 message Targeting {
@@ -319,6 +323,9 @@ message Targeting {
 
   // Works by the "site.id" field in the bid request.
   ListMatch site_id = 16;
+
+  // Works by the "app.id" field in the bid request.
+  ListMatch app_id = 17;
 }
 
 enum Network {
