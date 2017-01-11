@@ -221,6 +221,10 @@ message Creative {
   // Number of seconds before the SKIP button is appeared in the video ad.
   // Mandatory for the skippable video creatives.
   int64 skipoffset = 15;
+
+  string click_macro = 16;
+
+  string click_macro_esc = 17;
 }
 
 message Targeting {
