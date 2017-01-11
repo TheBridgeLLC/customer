@@ -237,7 +237,7 @@ message Targeting {
     // City using United Nations Code for Trade & Transport Locations: : http://www.unece.org/cefact/locode/service/location.html
     // Works by the "device.geo.city" field in the bid request.
     ListMatch city = 2;
-    
+
     // Region code using ISO-3166-2; 2-letter state code if USA.
     // Works by the "device.geo.region" field in the bid request.
     ListMatch region = 3;
@@ -313,6 +313,9 @@ message Targeting {
 
   // Works by the "site.id" field in the bid request.
   ListMatch site_id = 16;
+
+  // Works by the "app.id" field in the bid request.
+  ListMatch app_id = 17;
 }
 
 enum Network {
