@@ -278,7 +278,7 @@ message Targeting {
   repeated OS os = 2;
 
   // The minimum delay between any two impressions for the single user in the one ad network in seconds.
-  // Works by "user.id" field in the bid request.
+  // Works by "user.id" field in the bid request. If "user.id" is null - works by the "device.ifa" field instead.
   int64 frequency = 3;
   UserAgent user_agent = 4;
 
