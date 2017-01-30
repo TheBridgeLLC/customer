@@ -156,8 +156,7 @@ enum CreativeType {
 
 message Creative {
   reserved 9, 11, 12, 15;
-  reserved "duration", "protocols", "vast_url", "skipoffset";
-
+  
   message Size {
     int64 width = 1;
     int64 height = 2;
