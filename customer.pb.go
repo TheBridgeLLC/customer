@@ -822,7 +822,7 @@ type Targeting struct {
 	Geo *Targeting_Geo  `protobuf:"bytes,1,opt,name=geo" json:"geo,omitempty"`
 	Os  []*Targeting_OS `protobuf:"bytes,2,rep,name=os" json:"os,omitempty"`
 	// The minimum delay between any two impressions for the single user in the one ad network in seconds.
-	// Works by "user.id" field in the bid request.
+	// Works by "user.id" field in the bid request. If "user.id" is null - works by the "device.ifa" field instead.
 	Frequency int64                `protobuf:"varint,3,opt,name=frequency" json:"frequency,omitempty"`
 	UserAgent *Targeting_UserAgent `protobuf:"bytes,4,opt,name=user_agent,json=userAgent" json:"user_agent,omitempty"`
 	// Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
