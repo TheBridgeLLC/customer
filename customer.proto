@@ -105,7 +105,6 @@ message Campaign {
   // The URL which will be called on the impression.
   // {RANDOM} macros could be used for cachebusting.
   // Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
-  // Note: if the campaign has at least one creative with the "insecure" flag populated - this URL should has the "http://" protocol.
   string impression_tracking_url = 10;
 
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
