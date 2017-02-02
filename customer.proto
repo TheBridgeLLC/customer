@@ -103,7 +103,7 @@ message Campaign {
   repeated string landing_page_url = 9;
 
   // The URL which will be called on the impression.
-  // {RANDOM} macro could be used for cachebusting.
+  // {RANDOM} macros could be used for cachebusting.
   // Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
   // Note: if the campaign has at least one creative with the "insecure" flag populated - this URL should has the "http://" protocol.
   string impression_tracking_url = 10;
@@ -156,7 +156,7 @@ enum CreativeType {
 
 message Creative {
   reserved 9, 11, 12, 15;
-  
+
   message Size {
     int64 width = 1;
     int64 height = 2;
@@ -187,7 +187,7 @@ message Creative {
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
   // This is required for the creatives which should be rotated in the Google Ad Exchange.
   // If you use some ad server you might need to generate the click URL dynamic instead of populate it in the config.
-  // For this just put the escaped vertion of the click URL in the "html_content" of the creative right after the click macro.
+  // For this just put the escaped vertion of the click URL in the "html_content" of the creative right after the click macros.
   // Valid example: {CLICK_URL}http%3A%2F%2Flanding-page.com
   // Invalid example: {CLICK_URL}http://landing-page.com
   string click_url = 6;
@@ -214,9 +214,9 @@ message Creative {
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
 
-  string click_macro = 16;
+  string click_macros = 16;
 
-  string click_macro_esc = 17;
+  string click_macros_esc = 17;
 
   message Video {
     // Video ad duration in seconds. Required for the creative type "third_party_video".
@@ -293,7 +293,7 @@ message Targeting {
   repeated OS os = 2;
 
   // The minimum delay between any two impressions for the single user in the one ad network in seconds.
-  // Works by "user.id" field in the bid request.
+  // Works by "user.id" field in the bid request. If "user.id" is null - works by the "device.ifa" field instead.
   int64 frequency = 3;
   UserAgent user_agent = 4;
 
