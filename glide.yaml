@@ -8,3 +8,6 @@ import:
   - context
 - package: google.golang.org/grpc
   version: ^1.0.5
+- package: google.golang.org/genproto
+  subpackages:
+  - protobuf
