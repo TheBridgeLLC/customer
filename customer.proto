@@ -213,8 +213,12 @@ message Creative {
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
 
+  // Please use that variable to populate the custom click marco which will be replaced into the "html_content" field.
+  // If you don't populate it, you can still use the default click macro: {CLICK_URL}
   string click_macros = 16;
 
+  // Please use that variable to populate the custom escaped click marco which will be replaced into the "html_content" field.
+  // If you don't populate it, you can still use the default click macro: {CLICK_URL_ESC}
   string click_macros_esc = 17;
 
   message Video {
