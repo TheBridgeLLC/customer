@@ -147,13 +147,16 @@ message Native {
 
 enum CreativeType {
   third_party_banner = 0;
-  video = 1;
+  third_party_video = 1;
   native = 2;
   banner = 3; // deprecated
   interstitial = 4;
+  video = 5;
 }
 
 message Creative {
+  reserved 9, 11, 12, 15;
+
   message Size {
     int64 width = 1;
     int64 height = 2;
@@ -175,9 +178,10 @@ message Creative {
 
   // Available creative types:
   // 0 or blank - "third_party_banner";
-  // 1 - "video";
-  // 2 - "native"
-  // 4 - "interstitial".
+  // 1 - "third_party_video";
+  // 2 - "native";
+  // 4 - "interstitial";
+  // 5 - "video".
   CreativeType type = 5;
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
@@ -199,23 +203,9 @@ message Creative {
   // This field size should not exceed 8Kb.
   string html_content = 8;
 
-  // Video ad duration in seconds. Required for the creative type "video".
-  // This is compared with the "video.minduration" and "video.maxduration" fields in the bid request.
-  // Creative's duration should be between these values to be eligible for bid.
-  int64 duration = 9;
-
   // Creative's MIME type. This is compared with the "banner.mimes" field in the bid request.
   // If no matches - creative is not eligible for bid.
   repeated string mimes = 10;
-
-  // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
-  // This is compared with the "video.protocols" field in the bid request.
-  // If no matches - creative is not eligible for bid.
-  repeated int64 protocols = 11;
-
-  // The URL which returns the valid VAST XML.
-  // Required for the creative type "video".
-  string vast_url = 12;
 
   Native native = 13;
 
@@ -224,13 +214,38 @@ message Creative {
   // This is compared with the "battr" field in the bid request. If matched - the creative is not bidded.
   repeated int64 attributes = 14;
 
-  // Number of seconds before the SKIP button is appeared in the video ad.
-  // Mandatory for the skippable video creatives.
-  int64 skipoffset = 15;
-
   string click_macros = 16;
 
   string click_macros_esc = 17;
+
+  message Video {
+    // Video ad duration in seconds. Required for the creative type "third_party_video".
+    // This is compared with the "video.minduration" and "video.maxduration" fields in the bid request.
+    // Creative's duration should be between these values to be eligible for bid.
+    int64 duration = 1;
+
+    // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
+    // This is compared with the "video.protocols" field in the bid request.
+    // If no matches - creative is not eligible for bid.
+    repeated int64 protocols = 2;
+
+    // The URL which returns the valid VAST XML.
+    // Required for the creative type "third_party_video".
+    string vast_url = 3;
+
+    // Number of seconds before the SKIP button is appeared in the video ad.
+    // Mandatory for the skippable video creatives.
+    int64 skipoffset = 4;
+
+    message File {
+      string mime = 1;
+      string url = 2;
+    }
+
+    repeated File files = 5;
+  }
+
+  Video video = 18;
 }
 
 message Targeting {
