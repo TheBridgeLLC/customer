@@ -344,6 +344,10 @@ message Targeting {
 
   // Works by the "app.id" field in the bid request.
   ListMatch app_id = 17;
+
+  ListMatch app_bundle = 18;
+
+  ListMatch device_connection_type = 19;
 }
 
 enum Network {
