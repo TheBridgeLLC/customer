@@ -175,12 +175,6 @@ message Creative {
   // For those networks you will not receive bids for the creatives with the insecure flag populated.
   bool insecure = 4;
 
-  // Available creative types:
-  // 0 or blank - "third_party_banner";
-  // 1 - "third_party_video";
-  // 2 - "native";
-  // 4 - "interstitial";
-  // 5 - "video".
   CreativeType type = 5;
 
   // URL the user is sent to on click. Should contains the protocol (http:// or https://).
