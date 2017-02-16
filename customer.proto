@@ -266,7 +266,7 @@ message Targeting {
   }
 
   message OS {
-    // Device operating system as it's declared in the "device.os" field in the bid request.
+    // Device operating system as it's declared in the "device.os" field in the bid request. Not case sensitive.
     string name = 1;
 
     // Device operating system version as it's declared in the "device.osv" field in the bid request.
