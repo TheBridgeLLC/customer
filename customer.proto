@@ -13,6 +13,11 @@ message ReportRequest {
 
   // Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
   string format = 4;
+
+  // CampaignID in the 'AdvertiserID.CampaignID' format
+  string campaign_id = 5;
+
+  string group_by = 6;
 }
 
 message ReportResponse {
