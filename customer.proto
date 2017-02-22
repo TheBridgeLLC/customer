@@ -13,11 +13,6 @@ message ReportRequest {
 
   // Available output formats: Pretty, JSON, CSV[WithNames], TabSeparated[WithNames[AndTypes]], XML (default "Pretty")
   string format = 4;
-
-  // CampaignID in the 'AdvertiserID.CampaignID' format
-  string campaign_id = 5;
- 
-  string group_by = 6;
 }
 
 message ReportResponse {
@@ -271,7 +266,7 @@ message Targeting {
   }
 
   message OS {
-    // Device operating system as it's declared in the "device.os" field in the bid request.
+    // Device operating system as it's declared in the "device.os" field in the bid request. Not case sensitive.
     string name = 1;
 
     // Device operating system version as it's declared in the "device.osv" field in the bid request.
@@ -304,7 +299,7 @@ message Targeting {
   ListMatch carrier = 5;
 
   // IAB content categories as it's declared in the "site.cat" or "app.cat" fields in the bid request.
-  ListMatch category = 6;
+  ListMatch cat = 6;
 
   // The general type of device as it's declared in the "device.devicetype" field in the bid request.
   // Refer to List 5.17 in the Open RTB spec.
