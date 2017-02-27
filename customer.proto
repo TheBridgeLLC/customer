@@ -344,8 +344,11 @@ message Targeting {
   // Works by the "app.id" field in the bid request.
   ListMatch app_id = 17;
 
+  // Works by the "app.bundle" field in the bid request.
   ListMatch app_bundle = 18;
 
+  // The type of device connectivity as it's declared in the "device.connectiontype" field in the bid request.
+  // Refer to List 5.22 in the Open RTB spec.
   ListMatch device_connection_type = 19;
 }
 
