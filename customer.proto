@@ -17,6 +17,7 @@ message ReportRequest {
   // CampaignID in the 'AdvertiserID.CampaignID' format
   string campaign_id = 5;
 
+  // Available grouping by: pub_id, app_id, country, carrier, os, ssp, creative_id, domain
   string group_by = 6;
 }
 
