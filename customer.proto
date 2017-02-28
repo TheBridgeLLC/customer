@@ -305,7 +305,7 @@ message Targeting {
   ListMatch carrier = 5;
 
   // IAB content categories as it's declared in the "site.cat" or "app.cat" fields in the bid request.
-  ListMatch cat = 6;
+  ListMatch category = 6;
 
   // The general type of device as it's declared in the "device.devicetype" field in the bid request.
   // Refer to List 5.17 in the Open RTB spec.
