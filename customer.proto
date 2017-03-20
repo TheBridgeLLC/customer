@@ -360,4 +360,5 @@ enum Network {
   advmaker = 3;
   smartrtb = 4;
   otm = 5;
+  smartyads = 6;
 }
