@@ -351,6 +351,8 @@ message Targeting {
   // The type of device connectivity as it's declared in the "device.connectiontype" field in the bid request.
   // Refer to List 5.22 in the Open RTB spec.
   ListMatch device_connection_type = 19;
+
+  ListMatch inventory_type = 20;
 }
 
 enum Network {
