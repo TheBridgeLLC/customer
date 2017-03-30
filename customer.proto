@@ -356,6 +356,8 @@ message Targeting {
   // If "web" is included - we bid if request contains "site" object.
   // If "app" is included - we bid if request contains "app" object.
   ListMatch inventory_type = 20;
+
+  bool custom_ip_range = 21;
 }
 
 enum Network {
