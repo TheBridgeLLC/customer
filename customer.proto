@@ -352,6 +352,13 @@ message Targeting {
   // The type of device connectivity as it's declared in the "device.connectiontype" field in the bid request.
   // Refer to List 5.22 in the Open RTB spec.
   ListMatch device_connection_type = 19;
+
+  // There are two valid values: "web" and "app".
+  // If "web" is included - we bid if request contains "site" object.
+  // If "app" is included - we bid if request contains "app" object.
+  ListMatch inventory_type = 20;
+
+  bool custom_ip_range = 21;
 }
 
 enum Network {
