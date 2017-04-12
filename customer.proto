@@ -287,6 +287,8 @@ message Targeting {
     bool mobile = 2;
   }
 
+  // If you require that the bid request should contains the non empty value in the exact field, just use the empty object in the ListMatch targeting.
+  // Example: '"domain": {}' will target the only requests with the 'site.page' field populated.
   message ListMatch {
     bool include = 1;
     repeated string list = 2;
