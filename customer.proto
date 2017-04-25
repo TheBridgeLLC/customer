@@ -369,4 +369,5 @@ enum Network {
   smartrtb = 4;
   otm = 5;
   smartyads = 6;
+  xapads = 7;
 }
