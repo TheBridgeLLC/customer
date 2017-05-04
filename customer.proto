@@ -291,6 +291,7 @@ message Targeting {
   message ListMatch {
     bool include = 1;
     repeated string list = 2;
+    bool required = 3;
   }
 
   Geo geo = 1;
