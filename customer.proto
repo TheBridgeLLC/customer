@@ -373,4 +373,5 @@ enum Network {
   otm = 5;
   smartyads = 6;
   xapads = 7;
+  appodeal = 8;
 }
