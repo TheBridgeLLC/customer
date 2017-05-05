@@ -227,7 +227,7 @@ message Creative {
     // Creative's duration should be between these values to be eligible for bid.
     int64 duration = 1;
 
-    // Supported video protocols. Required for the creative type "video". Refer to List 5.8 in the Open RTB spec.
+    // Supported video protocols. Required for the creative type "third_party_video". Refer to List 5.8 in the Open RTB spec.
     // This is compared with the "video.protocols" field in the bid request.
     // If no matches - creative is not eligible for bid.
     repeated int64 protocols = 2;
