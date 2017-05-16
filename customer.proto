@@ -27,9 +27,9 @@ message ReportRequest {
 
   repeated string group_by = 7;
 
-  repeated string order_by = 9;
+  repeated string order_by = 8;
 
-  ReportType type = 10;
+  ReportType type = 9;
 }
 
 message ReportResponse {
