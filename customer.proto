@@ -254,7 +254,7 @@ message Creative {
 message Targeting {
   // Required for campaigns, which should be served in the Google Ad Exchange
   message Google {
-    string billing_id_deprecated = 1 [deprecated=true];
+    reserved 1;
     repeated string billing_id = 2;
   }
 
