@@ -375,4 +375,5 @@ enum Network {
   xapads = 7;
   appodeal = 8;
   pixfuture = 9;
+  smartyads_premium = 10;
 }
