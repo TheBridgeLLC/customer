@@ -2,6 +2,15 @@ syntax="proto3";
 
 package customer;
 
+enum ReportType {
+  // Please use the basic reports if you need the only impressions and clicks events information with the basic fields and slices.
+  basic = 0;
+
+  // For adding the bids events in reports and using custom slices please use the advanced reports instead.
+  // Please be note, that advanced reports usage may cause the additional billing and have to be approved by your manager.
+  advanced = 1;
+}
+
 message ReportRequest {
   string client_id = 1;
 
@@ -18,7 +27,17 @@ message ReportRequest {
   string campaign_id = 5;
 
   // Available grouping by: pub_id, app_id, country, carrier, os, ssp, creative_id, domain
-  string group_by = 6;
+  // This field is deprecated. Please use the group_by field instead.
+  string group_by_deprecated = 6 [deprecated=true];
+
+  // Available values for "basic" reports: ssp, creative_id, campaign_id, date. Additionally available for "advanced" reports: pub_id, app_id, country, carrier, os, domain.
+  repeated string group_by = 7;
+
+  // Available values for "basic" reports: date, campaign_id, creative_id, imps, clicks, ctr, cost, cpm, cpc.  Additionally available for "advanced" reports: bids, win_rate.
+  repeated string order_by = 8;
+
+  // Determine the input/output data formats. By default is "basic" reports.
+  ReportType type = 9;
 }
 
 message ReportResponse {
@@ -288,8 +307,7 @@ message Targeting {
     bool mobile = 2;
   }
 
-  // If you require that the bid request should contains the non empty value in the exact field, use the '"include": false' flag with the empty 'list' array in the ListMatch targeting.
-  // Example: '"domain": {"include": false}' will target the only requests with the non empty 'site.page' field.
+  // If you require that the bid request should contains the non empty value in the exact field, use the '"required": true' flag.
   message ListMatch {
     bool include = 1;
     repeated string list = 2;
@@ -362,6 +380,8 @@ message Targeting {
   ListMatch inventory_type = 20;
 
   bool custom_ip_range = 21;
+
+  repeated string network_prefix = 22;
 }
 
 enum Network {
@@ -375,4 +395,5 @@ enum Network {
   xapads = 7;
   appodeal = 8;
   pixfuture = 9;
+  smartyads_premium = 10;
 }
