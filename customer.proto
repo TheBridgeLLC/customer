@@ -396,4 +396,5 @@ enum Network {
   appodeal = 8;
   pixfuture = 9;
   smartyads_premium = 10;
+  bizzclick = 11;
 }
