@@ -381,6 +381,8 @@ message Targeting {
 
   bool custom_ip_range = 21;
 
+  // Please use this targeting if you have more then one endpoint for the connected network.
+  // To create the additional endpoints for the connected network please contact your manager.
   repeated string network_prefix = 22;
 
   // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
@@ -398,5 +400,5 @@ enum Network {
   xapads = 7;
   appodeal = 8;
   pixfuture = 9;
-  smartyads_premium = 10;
+  bizzclick = 10;
 }
