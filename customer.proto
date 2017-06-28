@@ -12,6 +12,8 @@ enum ReportType {
 }
 
 message ReportRequest {
+  reserved 6;
+
   string client_id = 1;
 
   // From date in the 'YYYY-MM-DD' format
@@ -25,10 +27,6 @@ message ReportRequest {
 
   // CampaignID in the 'AdvertiserID.CampaignID' format
   string campaign_id = 5;
-
-  // Available grouping by: pub_id, app_id, country, carrier, os, ssp, creative_id, domain
-  // This field is deprecated. Please use the group_by field instead.
-  string group_by_deprecated = 6 [deprecated=true];
 
   // Available values for "basic" reports: ssp, creative_id, campaign_id, date. Additionally available for "advanced" reports: pub_id, app_id, country, carrier, os, domain.
   repeated string group_by = 7;
