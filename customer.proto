@@ -150,6 +150,8 @@ message Campaign {
 
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
   bool inactive = 13;
+
+  bool budget_targeting_inactive = 14;
 }
 
 message Native {
