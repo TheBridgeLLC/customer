@@ -54,9 +54,9 @@ message SetConfigResponse {
 
 message GetConfigRequest {}
 
-message BudgetGetRequest {}
+message GetBudgetRemainRequest {}
 
-message BudgetGetResponse {
+message GetBudgetRemainResponse {
   string client_id = 1;
   float budget = 2;
 }
@@ -73,7 +73,7 @@ service API {
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
   rpc GetConfig(GetConfigRequest) returns (Customer) {}
-  rpc BudgetGet(BudgetGetRequest) returns (BudgetGetResponse) {}
+  rpc GetBudgetRemain(GetBudgetRemainRequest) returns (GetBudgetRemainResponse) {}
 }
 
 message Customer {
