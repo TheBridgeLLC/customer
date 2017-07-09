@@ -54,6 +54,13 @@ message SetConfigResponse {
 
 message GetConfigRequest {}
 
+message GetBudgetRemainRequest {}
+
+message GetBudgetRemainResponse {
+  string client_id = 1;
+  float budget = 2;
+}
+
 message ConfigHistoryItem {
   string id = 1;
   string date = 2;
@@ -66,6 +73,7 @@ service API {
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
   rpc GetConfig(GetConfigRequest) returns (Customer) {}
+  rpc GetBudgetRemain(GetBudgetRemainRequest) returns (GetBudgetRemainResponse) {}
 }
 
 message Customer {
@@ -142,6 +150,8 @@ message Campaign {
 
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
   bool inactive = 13;
+
+  bool budget_targeting_inactive = 14;
 }
 
 message Native {
