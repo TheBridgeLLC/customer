@@ -12,6 +12,8 @@ enum ReportType {
 }
 
 message ReportRequest {
+  reserved 6;
+
   string client_id = 1;
 
   // From date in the 'YYYY-MM-DD' format
@@ -25,10 +27,6 @@ message ReportRequest {
 
   // CampaignID in the 'AdvertiserID.CampaignID' format
   string campaign_id = 5;
-
-  // Available grouping by: pub_id, app_id, country, carrier, os, ssp, creative_id, domain
-  // This field is deprecated. Please use the group_by field instead.
-  string group_by_deprecated = 6 [deprecated=true];
 
   // Available values for "basic" reports: ssp, creative_id, campaign_id, date. Additionally available for "advanced" reports: pub_id, app_id, country, carrier, os, domain.
   repeated string group_by = 7;
@@ -331,7 +329,7 @@ message Targeting {
   // The minimum delay between any two impressions for the single user in the one ad network in seconds.
   // Works by "user.id" field in the bid request. If "user.id" is null - works by the "device.ifa" field instead.
   int64 frequency = 3;
-  UserAgent user_agent = 4;
+  UserAgent user_agent_deprecated = 4 [deprecated=true];
 
   // Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
   // For Google Ad Exchange use the Criterion ID string from this list to target: https://developers.google.com/adwords/api/docs/appendix/mobilecarriers.csv
@@ -395,6 +393,9 @@ message Targeting {
   // Please use this targeting if you have more then one endpoint for the connected network.
   // To create the additional endpoints for the connected network please contact your manager.
   repeated string network_prefix = 22;
+
+  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
+  ListMatch browser = 23;
 }
 
 enum Network {
