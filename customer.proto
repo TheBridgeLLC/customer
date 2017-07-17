@@ -113,6 +113,7 @@ message Campaign {
     // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
     // This field is required and should be more the zero.
     double daily = 1;
+    bool smooth = 2;
   }
 
   string name = 1;
