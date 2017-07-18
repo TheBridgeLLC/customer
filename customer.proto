@@ -113,6 +113,9 @@ message Campaign {
     // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
     // This field is required and should be more the zero.
     double daily = 1;
+
+    // Use this flag if campaign spends daily budget too fast.
+    // It spreads the daily budget evenly during the day.
     bool smooth = 2;
   }
 
@@ -150,6 +153,7 @@ message Campaign {
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
   bool inactive = 13;
 
+  // Please don't use this option without your manager confirmation.
   bool budget_targeting = 14;
 }
 
@@ -308,6 +312,7 @@ message Targeting {
     string version = 2;
   }
 
+  // Deprecated targeting. Please use the Browser targeting instead.
   message UserAgent {
     // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
     string name = 1;
@@ -388,13 +393,16 @@ message Targeting {
   // If "app" is included - we bid if request contains "app" object.
   ListMatch inventory_type = 20;
 
+  // Allow to target users by your own custom IP list.
+  // To add your ip list in the bidder please contact with your manager.
   bool custom_ip_range = 21;
 
   // Please use this targeting if you have more then one endpoint for the connected network.
   // To create the additional endpoints for the connected network please contact your manager.
   repeated string network_prefix = 22;
 
-  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
+  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer", "Firefox",
+  // "Opera mobile", "Edge mobile", "Chrome mobile", "Safari mobile", "Internet Explorer mobile", "Firefox mobile".
   ListMatch browser = 23;
 }
 
