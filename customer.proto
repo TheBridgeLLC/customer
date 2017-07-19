@@ -113,7 +113,7 @@ message Campaign {
     // Campaign daily budget limit. Daily budget is reseted every day at midnight by the UTC+3 (Moscow) time zone.
     // This field is required and should be more the zero.
     double daily = 1;
-    
+
     // Use this flag if campaign spends daily budget too fast.
     // It spreads the daily budget evenly during the day.
     bool smooth = 2;
@@ -154,7 +154,7 @@ message Campaign {
   bool inactive = 13;
 
   // Please don't use this option without your manager confirmation.
-  bool budget_targeting_inactive = 14;
+  bool budget_targeting = 14;
 }
 
 message Native {
@@ -401,7 +401,7 @@ message Targeting {
   // To create the additional endpoints for the connected network please contact your manager.
   repeated string network_prefix = 22;
 
-  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer", "Firefox", 
+  // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer", "Firefox",
   // "Opera mobile", "Edge mobile", "Chrome mobile", "Safari mobile", "Internet Explorer mobile", "Firefox mobile".
   ListMatch browser = 23;
 }
