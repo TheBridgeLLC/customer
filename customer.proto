@@ -144,10 +144,12 @@ message Campaign {
 
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is started daily at this time.
+  // Note: please don't set the same string to the start_date and the stop_date as it causes campaign filtration from the auction.
   string start_date = 11;
 
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
+  // Note: please don't set the same string to the start_date and the stop_date as it causes campaign filtration from the auction.
   string stop_date = 12;
 
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
