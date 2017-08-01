@@ -418,4 +418,5 @@ enum Network {
   appodeal = 8;
   pixfuture = 9;
   bizzclick = 10;
+  stroeer = 11;
 }
