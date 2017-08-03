@@ -304,12 +304,6 @@ message Targeting {
     ListMatch region = 3;
   }
 
-  message GeoIP {
-    ListMatch country = 1;
-    ListMatch city = 2;
-    ListMatch continent = 3;
-  }
-
   message OS {
     // Device operating system as it's declared in the "device.os" field in the bid request. Not case sensitive.
     string name = 1;
@@ -411,7 +405,7 @@ message Targeting {
   // "Opera mobile", "Edge mobile", "Chrome mobile", "Safari mobile", "Internet Explorer mobile", "Firefox mobile".
   ListMatch browser = 23;
 
-  GeoIP geo_ip = 24;
+  Geo geo_ip = 24;
 }
 
 enum Network {
