@@ -291,16 +291,13 @@ message Targeting {
   }
 
   message Geo {
-    // Country code using ISO-3166-1-alpha-3.
-    // Works by the "device.geo.country" field in the bid request.
+    // Country using ISO-3166-1 Alpha-2, for example NL
     ListMatch country = 1;
 
-    // City using United Nations Code for Trade & Transport Locations: : http://www.unece.org/cefact/locode/service/location.html
-    // Works by the "device.geo.city" field in the bid request.
+    // City name as provided by MaxMind, for example, Alkmaar
     ListMatch city = 2;
 
-    // Region code using ISO-3166-2; 2-letter state code if USA.
-    // Works by the "device.geo.region" field in the bid request.
+    // Region using ISO-3166-2 or FIPS region codes, for example, 07
     ListMatch region = 3;
   }
 
@@ -328,6 +325,8 @@ message Targeting {
     bool required = 3;
   }
 
+  // This targeting works by the data network provides in the 'device.geo' object of the bid request.
+  // If network doesn't provide such info (for example Stroeer) - please use the 'geo_ip' targeting instead.
   Geo geo = 1;
   repeated OS os = 2;
 
@@ -406,6 +405,7 @@ message Targeting {
   // "Opera mobile", "Edge mobile", "Chrome mobile", "Safari mobile", "Internet Explorer mobile", "Firefox mobile".
   ListMatch browser = 23;
 
+  // Please use this targeting instead of the 'geo' in case you wish us to determine user's geo on our end by ip address.
   Geo geo_ip = 24;
 }
 
