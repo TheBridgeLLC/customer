@@ -350,7 +350,8 @@ message Targeting {
   // Site's domain is extracted from the "site.page" field in the bid request and compared with the populated list.
   ListMatch domain = 8;
 
-  // Works by the "publisher.id" field in the bid request.
+  // This targeting works by the strings formatted as the {PUB_ID} macro returns: https://github.com/TheBridgeLLC/customer/wiki/Macros
+  // Currently for all the networks except bidswitch and google it looks like 'SSP_PublisherID' string.
   ListMatch publisher = 9;
 
   // Works by the "ext.ssp" field for the Bidswitch's request.
