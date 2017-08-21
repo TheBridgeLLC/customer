@@ -424,4 +424,5 @@ enum Network {
   pixfuture = 9;
   bizzclick = 10;
   stroeer = 11;
+  bidsxchange = 12;
 }
