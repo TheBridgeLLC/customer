@@ -286,6 +286,8 @@ message Creative {
 }
 
 message Targeting {
+  reserved 4;
+
   // Required for campaigns, which should be served in the Google Ad Exchange
   message Google {
     reserved 1;
@@ -335,7 +337,6 @@ message Targeting {
   // The minimum delay between any two impressions for the single user in the one ad network in seconds.
   // Works by "user.id" field in the bid request. If "user.id" is null - works by the "device.ifa" field instead.
   int64 frequency = 3;
-  UserAgent user_agent_deprecated = 4 [deprecated=true];
 
   // Carrier or ISP as it's declared in the "device.carrier" field in the bid request.
   // For Google Ad Exchange use the Criterion ID string from this list to target: https://developers.google.com/adwords/api/docs/appendix/mobilecarriers.csv
