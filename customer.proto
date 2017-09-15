@@ -423,4 +423,5 @@ enum Network {
   bizzclick = 10;
   stroeer = 11;
   bidsxchange = 12;
+  adkernel = 13;
 }
