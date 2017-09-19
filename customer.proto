@@ -87,6 +87,8 @@ message Advertiser {
 
   // There should be at least one creative for each advertiser.
   map<string, Creative> creatives = 3;
+
+  string agency = 4;
 }
 
 message Campaign {
