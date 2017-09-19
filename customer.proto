@@ -313,15 +313,6 @@ message Targeting {
     string version = 2;
   }
 
-  // Deprecated targeting. Please use the Browser targeting instead.
-  message UserAgent {
-    // Available browser names: "Opera", "Edge", "Chrome", "Safari", "Internet Explorer"
-    string name = 1;
-
-    // If the flag is set to TRUE, the only mobile versions of the browser's user agent are passed.
-    bool mobile = 2;
-  }
-
   // If you require that the bid request should contains the non empty value in the exact field, use the '"required": true' flag.
   message ListMatch {
     bool include = 1;
