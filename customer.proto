@@ -283,6 +283,8 @@ message Creative {
   }
 
   Video video = 18;
+
+  repeated int64 html_tags = 19;
 }
 
 message Targeting {
