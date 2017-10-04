@@ -283,6 +283,8 @@ message Creative {
   }
 
   Video video = 18;
+
+  repeated int64 html_tags = 19;
 }
 
 message Targeting {
@@ -424,4 +426,5 @@ enum Network {
   stroeer = 11;
   bidsxchange = 12;
   adkernel = 13;
+  mars = 14;
 }
