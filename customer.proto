@@ -431,4 +431,5 @@ enum Network {
   bidsxchange = 12;
   adkernel = 13;
   mars = 14;
+  adthink = 15;
 }
