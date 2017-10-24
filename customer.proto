@@ -294,6 +294,10 @@ message Creative {
   }
 
   Video video = 18;
+
+  // Banner ad types. Refer to List 5.2 in the openRTB spec.
+  // This is compared with the "btype" field in the bid request. If matched - the creative is not bidded.
+  repeated int64 html_tags = 19;
 }
 
 message Targeting {
@@ -434,4 +438,7 @@ enum Network {
   bizzclick = 10;
   stroeer = 11;
   bidsxchange = 12;
+  adkernel = 13;
+  mars = 14;
+  adthink = 15;
 }
