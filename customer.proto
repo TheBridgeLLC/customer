@@ -66,11 +66,22 @@ message ConfigHistoryItem {
   string author = 4;
 }
 
+message SetCampaignInactiveRequest {
+  string campaign_id = 1;
+  bool inactive = 2;
+}
+
+message SetCampaignInactiveResponse {
+  string campaign_id = 1;
+  bool inactive = 2;
+}
+
 service API {
   // Return clients metricks for the specified client ID with breakdown by Campaign ID.
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
   rpc GetConfig(GetConfigRequest) returns (Customer) {}
+  rpc SetCampaignInactive(SetCampaignInactiveRequest) returns (SetCampaignInactiveResponse) {}
   rpc GetBudgetRemain(GetBudgetRemainRequest) returns (GetBudgetRemainResponse) {}
 }
 
@@ -145,18 +156,22 @@ message Campaign {
   // Campaign start datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is started daily at this time.
   // Note: please don't set the same string to the start_date and the stop_date as it causes campaign filtration from the auction.
-  string start_date = 11;
+  string start_date_deprecated = 11 [deprecated=true];
 
   // Campaign stop datetime in the YYYY-MM-DDThh:mm:ss±hh:mm format.
   // The date could be ommited (Thh:mm:ss±hh:mm format). In that case campaign is stopped daily at this time.
   // Note: please don't set the same string to the start_date and the stop_date as it causes campaign filtration from the auction.
-  string stop_date = 12;
+  string stop_date_deprecated = 12 [deprecated=true];
 
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
   bool inactive = 13;
 
   // Please don't use this option without your manager confirmation.
   bool budget_targeting = 14;
+
+  string start_date = 15;
+  string stop_date = 16;
+  repeated int64 serving_hours = 17;
 }
 
 message Native {
