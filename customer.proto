@@ -66,11 +66,22 @@ message ConfigHistoryItem {
   string author = 4;
 }
 
+message SetCampaignInactiveRequest {
+  string campaign_id = 1;
+  bool inactive = 2;
+}
+
+message SetCampaignInactiveResponse {
+  string campaign_id = 1;
+  bool inactive = 2;
+}
+
 service API {
   // Return clients metricks for the specified client ID with breakdown by Campaign ID.
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
   rpc GetConfig(GetConfigRequest) returns (Customer) {}
+  rpc SetCampaignInactive(SetCampaignInactiveRequest) returns (SetCampaignInactiveResponse) {}
   rpc GetBudgetRemain(GetBudgetRemainRequest) returns (GetBudgetRemainResponse) {}
 }
 
