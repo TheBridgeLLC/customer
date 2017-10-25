@@ -341,6 +341,9 @@ message Targeting {
 
   // This targeting works by the data network provides in the 'device.geo' object of the bid request.
   // If network doesn't provide such info (for example Stroeer) - please use the 'geo_ip' targeting instead.
+  // Please note, that you have to populate the country code in the exact format the network passes it.
+  // Some networks pass the ISO-3166-1 Alpha-2 codes, some pass the ISO-3166-1 Alpha-3 codes.
+  // If you are not sure what exact format the network passes- just use the both ways, for example ["US","USA"]
   Geo geo = 1;
   repeated OS os = 2;
 
