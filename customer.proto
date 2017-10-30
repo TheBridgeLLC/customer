@@ -436,4 +436,5 @@ enum Network {
   adkernel = 13;
   mars = 14;
   adthink = 15;
+  vertoz = 16;
 }
