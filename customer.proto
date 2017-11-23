@@ -171,8 +171,14 @@ message Campaign {
   // Please don't use this option without your manager confirmation.
   bool budget_targeting = 14;
 
+  // Campaign start date in the YYYY-MM-DD format. Working in the UTC+3 timezone.
   string start_date = 15;
+  
+  // Campaign stop date in the YYYY-MM-DD format. Working in the UTC+3 timezone.
+  // Please note that campaign is active during all the stop date mentioned day.
   string stop_date = 16;
+  
+  // Campaign serving hours. Values could vary from 0 to 23. Working in the UTC+3 timezone.
   repeated int64 serving_hours = 17;
 }
 
