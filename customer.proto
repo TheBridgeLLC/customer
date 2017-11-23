@@ -91,6 +91,7 @@ message Customer {
 }
 
 message Advertiser {
+  // This field is passed to the bid response for the required networks.
   string name = 1;
 
   // There should be at least one campaign for each advertiser.
@@ -99,6 +100,7 @@ message Advertiser {
   // There should be at least one creative for each advertiser.
   map<string, Creative> creatives = 3;
 
+  // This field is passed to the bid response for the required networks.
   string agency = 4;
 }
 
