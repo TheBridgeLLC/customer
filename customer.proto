@@ -84,6 +84,7 @@ message Customer {
 }
 
 message Advertiser {
+  // This field is passed to the bid response for the required networks.
   string name = 1;
 
   // There should be at least one campaign for each advertiser.
@@ -92,6 +93,7 @@ message Advertiser {
   // There should be at least one creative for each advertiser.
   map<string, Creative> creatives = 3;
 
+  // This field is passed to the bid response for the required networks.
   string agency = 4;
 }
 
@@ -164,8 +166,14 @@ message Campaign {
   // Please don't use this option without your manager confirmation.
   bool budget_targeting = 14;
 
+  // Campaign start date in the YYYY-MM-DD format. Working in the UTC+3 timezone.
   string start_date = 15;
+
+  // Campaign stop date in the YYYY-MM-DD format. Working in the UTC+3 timezone.
+  // Please note that campaign is active during all the stop date mentioned day.
   string stop_date = 16;
+
+  // Campaign serving hours. Values could vary from 0 to 23. Working in the UTC+3 timezone.
   repeated int64 serving_hours = 17;
 }
 
@@ -415,6 +423,8 @@ message Targeting {
 
   // Please use this targeting instead of the 'geo' in case you wish us to determine user's geo on our end by ip address.
   Geo geo_ip = 24;
+
+  ListMatch referrer = 25;
 }
 
 enum Network {
