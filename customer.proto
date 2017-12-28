@@ -59,13 +59,6 @@ message GetBudgetRemainResponse {
   float budget = 2;
 }
 
-message ConfigHistoryItem {
-  string id = 1;
-  string date = 2;
-  string diff = 3;
-  string author = 4;
-}
-
 message SetCampaignInactiveRequest {
   string campaign_id = 1;
   bool inactive = 2;
