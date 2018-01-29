@@ -419,6 +419,8 @@ message Targeting {
 
   // Referrer's domain is extracted from the "site.ref" field in the bid request and compared with the populated list.
   ListMatch referrer = 25;
+
+  bool ads_txt = 26;
 }
 
 enum Network {
