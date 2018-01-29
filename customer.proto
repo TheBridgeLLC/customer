@@ -417,6 +417,8 @@ message Targeting {
   Geo geo_ip = 24;
 
   ListMatch referrer = 25;
+
+  bool ads_txt = 26;
 }
 
 enum Network {
