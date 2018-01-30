@@ -420,6 +420,8 @@ message Targeting {
   // Referrer's domain is extracted from the "site.ref" field in the bid request and compared with the populated list.
   ListMatch referrer = 25;
 
+  // Use this option to target the only domains which contains the right network and publisher in the ads.txt file.
+  // Please check more details about ads.txt initiative here: https://iabtechlab.com/ads-txt/
   bool ads_txt = 26;
 }
 
