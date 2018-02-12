@@ -227,12 +227,13 @@ message Creative {
 
   CreativeType type = 5;
 
-  // URL the user is sent to on click. Should contains the protocol (http:// or https://).
+  // URL the user will be sent to on click. Should contains the protocol (http:// or https://).
   // This is required for the creatives which should be rotated in the Google Ad Exchange.
-  // If you use some ad server you might need to generate the click URL dynamic instead of populate it in the config.
-  // For this just put the escaped vertion of the click URL in the "html_content" of the creative right after the click macros.
+  // If you use some ad server you might need to generate the click URL dynamic on the banner render.
+  // For this just put the escaped version of the click URL in the creative code right after the click macro instead of populate it in this field.
   // Valid example: {CLICK_URL}http%3A%2F%2Flanding-page.com
   // Invalid example: {CLICK_URL}http://landing-page.com
+  // IMPORTANT! Please never use both ways simultaneously - you need either specify click URL in the "click_url" field or populate it in the creative code itself, but not both ways at once!
   string click_url = 6;
 
   Size size = 7;
