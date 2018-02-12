@@ -417,6 +417,7 @@ message Targeting {
   // Please use this targeting instead of the 'geo' in case you wish us to determine user's geo on our end by ip address.
   Geo geo_ip = 24;
 
+  // Referrer's domain is extracted from the "site.ref" field in the bid request and compared with the populated list.
   ListMatch referrer = 25;
 
   // Use this option to target the only domains which contains the right network and publisher in the ads.txt file.
