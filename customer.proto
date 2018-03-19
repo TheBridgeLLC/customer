@@ -415,6 +415,7 @@ message Targeting {
   ListMatch browser = 23;
 
   // Please use this targeting instead of the 'geo' in case you wish us to determine user's geo on our end by ip address.
+  // Always use the ISO-3166-1 Alpha-2 country codes for this targeting.
   Geo geo_ip = 24;
 
   // Referrer's domain is extracted from the "site.ref" field in the bid request and compared with the populated list.
