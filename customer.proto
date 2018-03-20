@@ -28,7 +28,7 @@ message ReportRequest {
   // CampaignID in the 'AdvertiserID.CampaignID' format
   string campaign_id = 5;
 
-  // Available values for "basic" reports: ssp, creative_id, campaign_id, date. Additionally available for "advanced" reports: pub_id, app_id, country, carrier, os, domain.
+  // Available values for "basic" reports: ssp, creative_id, campaign_id, date, app_bundle. Additionally available for "advanced" reports: pub_id, app_id, country, carrier, os, domain.
   repeated string group_by = 7;
 
   // Available values for "basic" reports: date, campaign_id, creative_id, imps, clicks, ctr, cost, cpm, cpc.  Additionally available for "advanced" reports: bids, win_rate.
