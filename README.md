@@ -1,5 +1,5 @@
 
-This is the API documentation for GoBID bidder: www.bridgecdi.com
+This is the API documentation for GoBID bidder: https://gobid.auction
 
 With any questions or suggestions please feel free to contact us via email info@bridgecdi.com (please use the keywords CUSTOMER REQUEST in the email subject).
 
