@@ -424,7 +424,9 @@ message Targeting {
   // Use this option to target the only domains which contains the right network and publisher in the ads.txt file.
   // Please check more details about ads.txt initiative here: https://iabtechlab.com/ads-txt/
   bool ads_txt = 26;
-
+  
+  // Allow to target campaigns by your own custom IP ranges list.
+  // To add or modify your ip ranges list please contact your manager.
   string ip_range = 27;
 }
 
