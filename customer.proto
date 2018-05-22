@@ -201,6 +201,7 @@ enum CreativeType {
   banner = 3; // deprecated
   interstitial = 4;
   video = 5;
+  popunder = 6;
 }
 
 message Creative {
