@@ -299,6 +299,8 @@ message Creative {
   // Banner ad types. Refer to List 5.2 in the openRTB spec.
   // This is compared with the "btype" field in the bid request. If matched - the creative is not bidded.
   repeated int64 html_tags = 19;
+
+  string url = 20;
 }
 
 message Targeting {
@@ -451,4 +453,5 @@ enum Network {
   vertoz = 16;
   aol = 17;
   between = 18;
+  clickty = 19;
 }
