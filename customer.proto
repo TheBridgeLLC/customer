@@ -300,6 +300,7 @@ message Creative {
   // This is compared with the "btype" field in the bid request. If matched - the creative is not bidded.
   repeated int64 html_tags = 19;
 
+  // Field is mandatory for the popunder creative type.
   string url = 20;
 }
 
