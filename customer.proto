@@ -301,6 +301,7 @@ message Creative {
   repeated int64 html_tags = 19;
 
   // Field is mandatory for the popunder creative type.
+  // Should be valid URL.
   string url = 20;
 }
 
