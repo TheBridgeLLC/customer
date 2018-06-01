@@ -441,7 +441,7 @@ message Targeting {
   // To add or modify your ip ranges list please contact your manager.
   string ip_range = 27;
 
-  UserAgent user_agent = 28;
+  repeated UserAgent user_agent = 28;
 }
 
 enum Network {
