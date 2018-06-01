@@ -344,7 +344,8 @@ message Targeting {
     ListMatch browser_major = 2;
     ListMatch os_family = 3;
     ListMatch os_major = 4;
-    ListMatch device_major = 5;
+    ListMatch device_family = 5;
+    ListMatch device_major = 6;
   }
 
   // This targeting works by the data network provides in the 'device.geo' object of the bid request.
