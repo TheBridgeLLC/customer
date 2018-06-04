@@ -340,10 +340,19 @@ message Targeting {
   }
 
   message UserAgent {
+      
+    // Please check the CSV formatted list of the available values for the browser_family and browser_major targetings here:
+    // https://github.com/TheBridgeLLC/customer/wiki/Browser-targeting
     ListMatch browser_family = 1;
     ListMatch browser_major = 2;
+    
+    // Please check the CSV formatted list of the available values for the os_family and os_major targetings here:
+    // https://github.com/TheBridgeLLC/customer/wiki/OS-targeting
     ListMatch os_family = 3;
     ListMatch os_major = 4;
+    
+    // Please check the CSV formatted list of the available values for the device_family targeting here:
+    // https://github.com/TheBridgeLLC/customer/wiki/Device-targeting
     ListMatch device_family = 5;
   }
 
