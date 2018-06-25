@@ -341,17 +341,17 @@ message Targeting {
   }
 
   message UserAgent {
-      
+
     // Please check the CSV formatted list of the available values for the browser_family and browser_major targetings here:
     // https://github.com/TheBridgeLLC/customer/wiki/Browser-targeting
     ListMatch browser_family = 1;
     ListMatch browser_major = 2;
-    
+
     // Please check the CSV formatted list of the available values for the os_family and os_major targetings here:
     // https://github.com/TheBridgeLLC/customer/wiki/OS-targeting
     ListMatch os_family = 3;
     ListMatch os_major = 4;
-    
+
     // Please check the CSV formatted list of the available values for the device_family targeting here:
     // https://github.com/TheBridgeLLC/customer/wiki/Device-targeting
     ListMatch device_family = 5;
@@ -446,7 +446,7 @@ message Targeting {
   // Use this option to target the only domains which contains the right network and publisher in the ads.txt file.
   // Please check more details about ads.txt initiative here: https://iabtechlab.com/ads-txt/
   bool ads_txt = 26;
-  
+
   // Allow to target campaigns by your own custom IP ranges list.
   // To add or modify your ip ranges list please contact your manager.
   string ip_range = 27;
@@ -475,4 +475,5 @@ enum Network {
   aol = 17;
   between = 18;
   clickty = 19;
+  arteebee = 20;
 }
