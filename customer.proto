@@ -452,6 +452,8 @@ message Targeting {
   string ip_range = 27;
 
   repeated UserAgent user_agent = 28;
+
+  ListMatch banner_pos = 29;
 }
 
 enum Network {
