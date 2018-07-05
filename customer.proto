@@ -106,8 +106,9 @@ message Campaign {
 
   // Required
   message Pricing {
-    // This is compared against ortb field "cur" from the bid request,
+    // This is compared against the 'cur' field of the bid request,
     // which contains ISO-4217 alpha codes of the currencies, allowed for the bid.
+    // In case 'cur' is not populated in the bid request, it's compared against the default currency for the network (generally 'USD').
     string currency = 1;
 
     // This number is sent into the bid response as the bid CPM price.
