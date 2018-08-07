@@ -453,7 +453,7 @@ message Targeting {
   string ip_range = 27;
 
   repeated UserAgent user_agent = 28;
-  
+
   // Ad position as it's declared in the "imp.banner.pos" field in the bid request.
   // Refer to List 5.4 in the Open RTB spec.
   ListMatch banner_pos = 29;
@@ -481,4 +481,5 @@ enum Network {
   between = 18;
   clickty = 19;
   arteebee = 20;
+  zeropark = 21;
 }
