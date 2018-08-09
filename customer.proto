@@ -425,8 +425,7 @@ message Targeting {
   // If "app" is included - we bid if request contains "app" object.
   ListMatch inventory_type = 20;
 
-  // Allow to target users by your own custom IP list.
-  // To add your ip list in the bidder please contact with your manager.
+  // Obsolete field. Please use the "ip_range" targeting instead.
   bool custom_ip_range = 21;
 
   // Please use this targeting if you have more then one endpoint for the connected network.
