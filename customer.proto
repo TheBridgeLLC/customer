@@ -481,4 +481,5 @@ enum Network {
   clickty = 19;
   arteebee = 20;
   zeropark = 21;
+  admixer = 22;
 }
