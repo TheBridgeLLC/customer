@@ -69,12 +69,25 @@ message SetCampaignInactiveResponse {
   bool inactive = 2;
 }
 
+message GetCampaignListRequest {}
+
+message CampaignListItem {
+  string id = 1;
+  string name = 2;
+  bool inactive = 3;
+}
+
+message GetCampaignListResponse {
+  repeated CampaignListItem campaigns = 1;
+}
+
 service API {
   // Return clients metricks for the specified client ID with breakdown by Campaign ID.
   rpc Report(ReportRequest) returns (ReportResponse) {}
   rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {}
   rpc GetConfig(GetConfigRequest) returns (Customer) {}
   rpc SetCampaignInactive(SetCampaignInactiveRequest) returns (SetCampaignInactiveResponse) {}
+  rpc GetCampaignList(GetCampaignListRequest) returns (GetCampaignListResponse) {}
   rpc GetBudgetRemain(GetBudgetRemainRequest) returns (GetBudgetRemainResponse) {}
 }
 
