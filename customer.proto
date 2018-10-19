@@ -194,6 +194,7 @@ message Native {
       int64 width = 2;
       int64 height = 3;
       string mime = 4;
+      int64 type = 5;
     }
 
     message Data {
