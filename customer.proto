@@ -184,21 +184,31 @@ message Campaign {
 }
 
 message Native {
+    
+  // Each asset should contain only one object: title, image or data.
   message Asset {
+      
+    // The Title object is to be used for title element of the Native ad.
     message Title {
       string text = 1;
     }
 
+    // The Image object to be used for all image elements of the Native ad such as Icons, Main Image, etc.
     message Image {
       string url = 1;
       int64 width = 2;
       int64 height = 3;
       string mime = 4;
+      
+      // Image asset type. Refer to List 7.7 of the OpenRTB Dynamic Native Ads API Specification.
       int64 type = 5;
     }
 
+    // The Data Object is to be used for all non-core elements of the native unit such as Brand Name, Ratings, Review Count, Stars, Download count, descriptions etc.
     message Data {
       string value = 1;
+      
+      // Data asset type. Refer to List 7.6 of the OpenRTB Dynamic Native Ads API Specification.
       int64 type = 2;
     }
 
@@ -267,6 +277,7 @@ message Creative {
   // If no matches - creative is not eligible for bid.
   repeated string mimes = 10;
 
+  // Native object is required for 'native' creative type.
   Native native = 13;
 
   // IAB creative attributes. Refer to List 5.3 in the openRTB spec.
