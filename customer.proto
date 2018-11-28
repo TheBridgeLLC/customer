@@ -164,6 +164,7 @@ message Campaign {
   // The URL which will be called on the impression.
   // {RANDOM} macros could be used for cachebusting.
   // Note: if the impression tracker doesn't have the valid SSL certificate - please populate the "creative.insecure" flag to TRUE to avoid the stats discrepancies
+  // This doesn't work for the popunder creative as it has it's own redirect on impression event.
   string impression_tracking_url = 10;
 
   // Please populate this flag to TRUE if you need to pause the campaign without deleting it from the config.
