@@ -185,10 +185,10 @@ message Campaign {
 }
 
 message Native {
-    
+
   // Each asset should contain only one object: title, image or data.
   message Asset {
-      
+
     // The Title object is to be used for title element of the Native ad.
     message Title {
       string text = 1;
@@ -200,7 +200,7 @@ message Native {
       int64 width = 2;
       int64 height = 3;
       string mime = 4;
-      
+
       // Image asset type. Refer to List 7.7 of the OpenRTB Dynamic Native Ads API Specification.
       int64 type = 5;
     }
@@ -208,7 +208,7 @@ message Native {
     // The Data Object is to be used for all non-core elements of the native unit such as Brand Name, Ratings, Review Count, Stars, Download count, descriptions etc.
     message Data {
       string value = 1;
-      
+
       // Data asset type. Refer to List 7.6 of the OpenRTB Dynamic Native Ads API Specification.
       int64 type = 2;
     }
@@ -508,4 +508,5 @@ enum Network {
   arteebee = 20;
   zeropark = 21;
   admixer = 22;
+  q1 = 23;
 }
